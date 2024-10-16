@@ -63,7 +63,7 @@ const Navbar = () => {
         </div>
 
         <div>
-          <ul className="hidden lg:flex items-center justify-between gap-[60px] bg-basic py-[14px]">
+          <ul className="hidden md:flex items-center justify-between gap-[20px] lg:gap-[60px] bg-basic py-[14px]">
             {navCategories.map((category, index) => (
               <li className="relative" key={index}>
                 <NavLink to={`${category.url}`}>
