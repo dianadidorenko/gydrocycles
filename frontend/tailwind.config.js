@@ -11,6 +11,7 @@ export default {
     },
     screens: {
       "320px": "321px",
+      verySm: "320px",
       xs: "380px",
       xsSm: "500px",
       sm: "640px",

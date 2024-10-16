@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { assets } from "../assets/assets";
+import { assets, navCategories } from "../assets/assets";
 import {
   Box,
   Heart,
@@ -64,166 +64,26 @@ const Navbar = () => {
 
         <div>
           <ul className="hidden lg:flex items-center justify-between gap-[60px] bg-basic py-[14px]">
-            {/* Квадроциклы */}
-
-            <li className="relative">
-              <NavLink to="/quadrocycles">
-                {({ isActive }) => (
-                  <>
-                    <p
-                      className={`text-gray-800 ${
-                        isActive ? "font-bold" : ""
-                      }`}
-                    >
-                      Квадроциклы
-                    </p>
-                    {isActive && (
-                      <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
-
-            {/* Катера */}
-            <li className="relative">
-              <NavLink to="/ships">
-                {({ isActive }) => (
-                  <>
-                    <p
-                      className={`text-gray-800 ${
-                        isActive ? "font-bold" : ""
-                      }`}
-                    >
-                      Катера
-                    </p>
-                    {isActive && (
-                      <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
-
-            {/* Гидроциклы */}
-            <li className="relative">
-              <NavLink to="/hydroycles">
-                {({ isActive }) => (
-                  <>
-                    <p
-                      className={`text-gray-800 ${
-                        isActive ? "font-bold" : ""
-                      }`}
-                    >
-                      Гидроциклы
-                    </p>
-                    {isActive && (
-                      <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
-
-            {/* Лодки */}
-            <li className="relative">
-              <NavLink to="/boats">
-                {({ isActive }) => (
-                  <>
-                    <p
-                      className={`text-gray-800 ${
-                        isActive ? "font-bold" : ""
-                      }`}
-                    >
-                      Лодки
-                    </p>
-                    {isActive && (
-                      <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
-
-            {/* Вездеходы */}
-            <li className="relative">
-              <NavLink to="/allroads">
-                {({ isActive }) => (
-                  <>
-                    <p
-                      className={`text-gray-800 ${
-                        isActive ? "font-bold" : ""
-                      }`}
-                    >
-                      Вездеходы
-                    </p>
-                    {isActive && (
-                      <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
-
-            {/* Снегоходы */}
-            <li className="relative">
-              <NavLink to="/snowmobile">
-                {({ isActive }) => (
-                  <>
-                    <p
-                      className={`text-gray-800 ${
-                        isActive ? "font-bold" : ""
-                      }`}
-                    >
-                      Снегоходы
-                    </p>
-                    {isActive && (
-                      <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
-
-            {/* Двигатели */}
-            <li className="relative">
-              <NavLink to="/engines">
-                {({ isActive }) => (
-                  <>
-                    <p
-                      className={`text-gray-800 ${
-                        isActive ? "font-bold" : ""
-                      }`}
-                    >
-                      Двигатели
-                    </p>
-                    {isActive && (
-                      <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
-
-            {/* Запчасти */}
-            <li className="relative">
-              <NavLink to="/parts">
-                {({ isActive }) => (
-                  <>
-                    <p
-                      className={`text-gray-800 ${
-                        isActive ? "font-bold" : ""
-                      }`}
-                    >
-                      Запчасти
-                    </p>
-                    {isActive && (
-                      <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
-                    )}
-                  </>
-                )}
-              </NavLink>
-            </li>
+            {navCategories.map((category, index) => (
+              <li className="relative" key={index}>
+                <NavLink to={`${category.url}`}>
+                  {({ isActive }) => (
+                    <>
+                      <p
+                        className={`text-gray-800 ${
+                          isActive ? "font-bold" : ""
+                        }`}
+                      >
+                        {category.category}
+                      </p>
+                      {isActive && (
+                        <span className="absolute left-0 right-0 bottom-[-15px] h-[2px] bg-accent" />
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            ))}
           </ul>
 
           <ul className="flex md:hidden items-center justify-between gap-[15px] bg-basic py-[14px] px-[10px] font-bold">
@@ -242,8 +102,8 @@ const Navbar = () => {
 
       {/* Sidebar menu for small screens */}
       <div
-        className={`h-full flex flex-col pr-[10px] max-w-[320px] absolute top-0 left-0 overflow-hidden overflow-y-scroll bg-white transition-all ${
-          show ? "w-full" : "hidden -left-52"
+        className={`h-full flex flex-col pr-[10px] absolute top-0 left-0 z-10 overflow-hidden overflow-y-scroll bg-white transition-all ${
+          show ? "w-full h-full" : "hidden -left-52"
         }`}
       >
         <div className="shadow-xl tetx-[20px] relative">
@@ -254,6 +114,7 @@ const Navbar = () => {
 
           <NavLink
             to={"/login"}
+            onClick={() => setShow(false)}
             className="flex items-center gap-[23px] border-b border-b-lightGray pl-[10px] pt-[46px]"
           >
             <User size={20} />
@@ -261,6 +122,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/register"}
+            onClick={() => setShow(false)}
             className="flex items-center  gap-[23px] border-b border-b-lightGray pl-[10px] pt-[46px]"
           >
             <User size={20} />
@@ -270,6 +132,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/favorite"}
+            onClick={() => setShow(false)}
             className="flex items-center  gap-[23px] border-b border-b-lightGray pl-[10px] pt-[46px]"
           >
             <Heart size={20} />
@@ -279,6 +142,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/cart"}
+            onClick={() => setShow(false)}
             className="flex items-center  gap-[23px] border-b border-b-lightGray pl-[10px] pt-[46px]"
           >
             <ShoppingCart size={20} />
@@ -288,6 +152,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/stores"}
+            onClick={() => setShow(false)}
             className="flex items-center gap-[23px] border-b border-b-lightGray pl-[10px] pt-[46px]"
           >
             <Home size={20} />
@@ -297,6 +162,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/promotions"}
+            onClick={() => setShow(false)}
             className="flex items-center gap-[23px] border-b border-b-lightGray pl-[10px] pt-[46px]"
           >
             <Percent size={20} />
@@ -304,6 +170,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/delivery"}
+            onClick={() => setShow(false)}
             className="flex items-center  gap-[23px] border-b border-b-lightGray pl-[10px] pt-[46px]"
           >
             <Box size={20} />
@@ -313,6 +180,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/quadrocycles"}
+            onClick={() => setShow(false)}
             className="flex gap-[23px] border-b border-b-lightGray pl-[53px] pt-[46px]"
           >
             <p className="text-[20px] hover:text-accent duration-300">
@@ -321,12 +189,14 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/ships"}
+            onClick={() => setShow(false)}
             className="flex gap-[23px] border-b border-b-lightGray pl-[53px] pt-[46px]"
           >
             <p className="text-[20px] hover:text-accent duration-300">Катера</p>
           </NavLink>
           <NavLink
             to={"/hydrocycles"}
+            onClick={() => setShow(false)}
             className="flex gap-[23px] border-b border-b-lightGray pl-[53px] pt-[46px]"
           >
             <p className="text-[20px] hover:text-accent duration-300">
@@ -335,6 +205,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/allroads"}
+            onClick={() => setShow(false)}
             className="flex gap-[23px] border-b border-b-lightGray pl-[53px] pt-[46px]"
           >
             <p className="text-[20px] hover:text-accent duration-300">
@@ -343,6 +214,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/snowmobile"}
+            onClick={() => setShow(false)}
             className="flex gap-[23px] border-b border-b-lightGray pl-[53px] pt-[46px]"
           >
             <p className="text-[20px] hover:text-accent duration-300">
@@ -351,6 +223,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/engines"}
+            onClick={() => setShow(false)}
             className="flex gap-[23px] border-b border-b-lightGray pl-[53px] pt-[46px]"
           >
             <p className="text-[20px] hover:text-accent duration-300">
@@ -359,6 +232,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             to={"/parts"}
+            onClick={() => setShow(false)}
             className="flex gap-[23px] border-b border-b-lightGray pl-[53px] pt-[46px]"
           >
             <p className="text-[20px] hover:text-accent duration-300">

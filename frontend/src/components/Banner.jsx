@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import SwiperNavButtons from "./SwiperNavButtons";
 import { assets, products } from "../assets/assets";
 import Container from "../components/Container";
+import { Link } from "react-router-dom";
 
 const mainSliderData = [
   {
@@ -66,19 +67,31 @@ const MainSlider = () => {
             {products.map((item, index) => {
               if (item.name === "Лодочный мотор Suzuki DF9.9BRS") {
                 return (
-                  <div key={index} className="w-full">
+                  <Link
+                    to={`/product/${item._id}`}
+                    key={index}
+                    className="w-full"
+                  >
                     <div className="border border-[#CDCDCD]">
-                      <div className="flex justify-between gap-[5px] sm:gap-[54px] items-start pr-[5px]">
+                      <div className="flex justify-between gap-[5px] sm:gap-[54px] items-start">
                         <p className="flex items-center uppercase font-bold text-[12px] py-2 px-[20px] bg-accent text-white">
                           {item.promotionType}
                         </p>
-                        <div className="flex flex-col gap-[7px] justify-end items-end pt-[3px] pr-[10px]">
-                          <p className="flex gap-1 text-accent font-bold text-[27px]">
-                            {item.priceDiscount} <span>₴</span>
+                        <div className="flex flex-col gap-[7px] justify-end items-end pt-[3px] mr-[10px] text-nowrap">
+                          <p className="flex text-accent font-bold text-[27px]">
+                            {String(item.priceDiscount).replace(
+                              /\B(?=(\d{3})+(?!\d))/g,
+                              " "
+                            )}
+                            <span className="pl-[1px]">₴</span>
                           </p>
                           <div className="relative">
-                            <p className="text-lightGray text-[14px] relative z-10">
-                              {item.priceStart} ₴
+                            <p className="text-lightGray text-[14px] relative z-1">
+                              {String(item.priceStart).replace(
+                                /\B(?=(\d{3})+(?!\d))/g,
+                                " "
+                              )}{" "}
+                              ₴
                             </p>
                             <hr className="absolute top-1/2 left-0 w-full h-[4px] text-lightGray transform -rotate-12" />
                           </div>
@@ -99,7 +112,7 @@ const MainSlider = () => {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               }
             })}

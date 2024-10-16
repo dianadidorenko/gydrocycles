@@ -24,7 +24,9 @@ const PopularItems = () => {
   return (
     <section className="py-[80px] px-[10px]">
       <Container>
-        <h2 className="text-[25px] font-bold">Популярные товары</h2>
+        <h2 className="text-[25px] font-bold text-center xsSm:text-left">
+          Популярные товары
+        </h2>
 
         <div className="flex gap-[30px] sm:gap-[50px] overflow-x-scroll">
           <button

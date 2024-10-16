@@ -42,3 +42,28 @@ a.active {
     bottom: 15px;
   }
 }
+
+input[type="checkbox"] {
+  appearance: none; /* Убираем стандартный стиль */
+  min-width: 14px; /* Ширина квадратика */
+  min-height: 14px; /* Высота квадратика */
+  border: 2px solid #d7d9df; /* Цвет границы */
+  border-radius: 2px; /* Чуть закругленные углы */
+  cursor: pointer; /* Указатель при наведении */
+  position: relative; /* Для псевдоэлемента */
+}
+
+input[type="checkbox"]:checked {
+  background-color: #4CAF50; /* Цвет фона для отмеченного квадратика */
+  border: 2px solid #4CAF50; /* Цвет границы для отмеченного квадратика */
+}
+
+input[type="checkbox"]:checked:after {
+  content: ""; /* Создаем псевдоэлемент */
+  position: absolute; /* Позиционирование относительно родителя */
+  left: 2px; /* Отступ от левого края */
+  top: 2px; /* Отступ от верхнего края */
+  width: 6px; /* Ширина галочки */
+  height: 6px; /* Высота галочки */
+  background-color: white; /* Цвет галочки */
+}
