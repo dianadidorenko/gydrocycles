@@ -811,12 +811,14 @@ const Hydrocycles = () => {
           .map((item) => item[key])
           .filter((value) => value !== undefined && value !== null)
       )
-    ).sort((a, b) => a - b); // Уникальные значения для фильтра
+    ).sort((a, b) => a - b);
 
     return (
       <div className="flex gap-[19px] flex-col cursor-pointer">
-        <div className="flex items-center justify-between gap-[14px] pb-[14px] border-b-2 border-b-lightGray">
-          <p className="font-semibold text-main">{label}</p>
+        <div className="flex items-center justify-between gap-[5px] md:gap-[14px] pb-[14px] border-b-2 border-b-lightGray">
+          <p className="font-semibold text-main text-[14px] md:text-base">
+            {label}
+          </p>
           <div className="relative w-[38px] border border-lightGray/20 rounded-md">
             <select
               className="appearance-none placeholder:text-[14px] text-[14px] bg-white text-main outline-none"
@@ -945,8 +947,8 @@ const Hydrocycles = () => {
           </div>
         </div>
         <div
-          className={`flex justify-between  px-[10px] ${
-            tableView === "grid" ? "gap-[10px]" : "gap-[50px]"
+          className={`flex items-start px-[10px] ${
+            tableView === "grid" ? "gap-[10px]" : " gap-[15px] sm:gap-[50px]"
           } pb-[77px]`}
         >
           {/* Фильтр */}
@@ -1025,20 +1027,20 @@ const Hydrocycles = () => {
                 ) : (
                   <ChevronDown size={18} className="text-lightGray" />
                 )}
-                <p className="font-semibold">Цена</p>
+                <p className="font-semibold text-[14px] md:text-base">Цена</p>
               </div>
 
               {showPrice && (
                 <>
                   <Slider
                     range
-                    min={0}
+                    min={100000}
                     max={500000}
                     value={priceRange}
                     onChange={setPriceRange}
                     allowCross={false}
                   />
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-[14px] md:text-base">
                     <span>от {priceRange[0]}</span>
                     <span>до {priceRange[1]}</span>
                   </div>
@@ -1046,7 +1048,7 @@ const Hydrocycles = () => {
               )}
             </div>
             {/* Мощность, Мощность двигателя, Макс. скорость */}
-            <div className="flex flex-col max-w-[310px] gap-y-[41px] px-[10px]">
+            <div className="flex flex-col max-w-[310px] gap-y-[20px] md:gap-y-[41px] px-[10px]">
               {renderFilter(
                 "Мощность, л.с.",
                 selectedPower,
@@ -1150,7 +1152,7 @@ const Hydrocycles = () => {
               </div>
 
               {showPromotionType && (
-                <div className="flex items-start gap-3 xsSm:gap-6 flex-col xsSm:flex-row">
+                <div className="flex items-start gap-3 xsSm:gap-6 flex-row flex-wrap">
                   {uniquePromotions.map((promotion, index) => (
                     <div
                       key={index}
@@ -1180,10 +1182,10 @@ const Hydrocycles = () => {
           </div>
           {/* Каталог */}
           <div
-            className={`gap-[30px] w-full ${
+            className={`gap-[30px] ${
               tableView === "grid"
-                ? "grid grid-cols-1 md:grid-cols-2 lgXl:grid-cols-3"
-                : "flex flex-col justify-start"
+                ? "grid grid-cols-1 md:grid-cols-2 lgXl:grid-cols-3 md:w-full md:place-items-start"
+                : "flex flex-col justify-start w-full"
             }`}
           >
             {filteredProducts.map(
