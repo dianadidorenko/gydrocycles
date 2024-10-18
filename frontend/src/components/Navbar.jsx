@@ -4,13 +4,15 @@ import {
   Box,
   Heart,
   Home,
+  LogOut,
   MapPin,
   Menu,
+  Package,
   Percent,
-  ShoppingCart,
   User,
   X,
 } from "lucide-react";
+import { FiShoppingCart } from "react-icons/fi";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -55,10 +57,30 @@ const Navbar = () => {
             <p>Одесса, ул.Толбухина 135</p>
           </div>
 
-          <div className="flex items-center gap-[10px]">
+          <div className="flex items-center gap-[10px] group relative">
             <Heart size={30} />
             <User size={30} />
-            <ShoppingCart size={30} />
+            <div className="group-hover:block hidden absolute dropdown-menu -right-2 top-6 pt-4 z-10">
+              <div className="flex flex-col gap-3 w-36 py-3 px-5 bg-[#eee] border border-[#b6b6b6]">
+                <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
+                  <User size={20} /> Профиль
+                </p>
+                <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
+                  <Package size={20} /> Заказы
+                </p>
+                <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
+                  <LogOut size={20} /> Выйти
+                </p>
+              </div>
+            </div>
+            <div>
+              <Link to={"/cart"} className="relative">
+                <FiShoppingCart size={30} className="w-[30px]" />
+                <span className="absolute right-[3px] bottom-[22px] w-4 text-center leading-4 bg-accent text-white rounded-full aspect-square text-[10px] animate-bounce-up-down">
+                  0
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -145,7 +167,7 @@ const Navbar = () => {
             onClick={() => setShow(false)}
             className="flex items-center  gap-[23px] border-b border-b-lightGray pl-[10px] pt-[46px]"
           >
-            <ShoppingCart size={20} />
+            <FiShoppingCart size={20} />
             <p className="text-[20px] hover:text-accent duration-300">
               Корзина
             </p>

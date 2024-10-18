@@ -6,9 +6,11 @@ import "swiper/css/autoplay";
 import "swiper/css/pagination";
 
 import SwiperNavButtons from "./SwiperNavButtons";
-import { assets, products } from "../assets/assets";
+import { assets } from "../assets/assets";
 import Container from "../components/Container";
 import { Link } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { ShopContext } from "../context/ShopContext";
 
 const mainSliderData = [
   {
@@ -32,6 +34,20 @@ const mainSliderData = [
 ];
 
 const MainSlider = () => {
+  const { products } = useContext(ShopContext);
+
+  const [randomProduct, setRandomProduct] = useState(null);
+
+  useEffect(() => {
+    const availableProducts = products.filter(
+      (item) => item.priceDiscount && item.priceStart
+    );
+    const randomIndex = Math.floor(Math.random() * availableProducts.length);
+    setRandomProduct(availableProducts[randomIndex]);
+  }, [products]);
+
+  if (!randomProduct) return null;
+
   return (
     <section className="pt-[40px] pb-[80px] lgXl:py-[80px]">
       <Container>
@@ -64,58 +80,48 @@ const MainSlider = () => {
           </div>
 
           <div className="px-[10px] sm:px-0 max-w-[270px] mx-auto">
-            {products.map((item, index) => {
-              if (item.name === "Лодочный мотор Suzuki DF9.9BRS") {
-                return (
-                  <Link
-                    to={`/product/${item._id}`}
-                    key={index}
-                    className="w-full"
-                  >
-                    <div className="border border-[#CDCDCD]">
-                      <div className="flex justify-between gap-[5px] sm:gap-[54px] items-start">
-                        <p className="flex items-center uppercase font-bold text-[12px] py-2 px-[20px] bg-accent text-white">
-                          {item.promotionType}
-                        </p>
-                        <div className="flex flex-col gap-[7px] justify-end items-end pt-[3px] mr-[10px] text-nowrap">
-                          <p className="flex text-accent font-bold text-[27px]">
-                            {String(item.priceDiscount).replace(
-                              /\B(?=(\d{3})+(?!\d))/g,
-                              " "
-                            )}
-                            <span className="pl-[1px]">₴</span>
-                          </p>
-                          <div className="relative">
-                            <p className="text-lightGray text-[14px] relative z-1">
-                              {String(item.priceStart).replace(
-                                /\B(?=(\d{3})+(?!\d))/g,
-                                " "
-                              )}{" "}
-                              ₴
-                            </p>
-                            <hr className="absolute top-1/2 left-0 w-full h-[4px] text-lightGray transform -rotate-12" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center mt-[8px] mb-[4px]">
-                        <img src={item.image[0]} alt={item.name} />
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <p className="font-bold text-[18px] max-w-[210px] text-center mb-[7px]">
-                          {item.name}
-                        </p>
-                      </div>
-                      <div className="bg-basic flex text-center justify-center p-[14px]">
-                        <p>
-                          Акция действует до <br />
-                          <span className="text-accent">31.12.2024</span>
-                        </p>
-                      </div>
+            <Link to={`/product/${randomProduct._id}`} className="w-full">
+              <div className="border border-[#CDCDCD]">
+                <div className="flex justify-between gap-[5px] sm:gap-[54px] items-start">
+                  <p className="flex items-center uppercase font-bold text-[12px] py-2 px-[20px] bg-accent text-white">
+                    {randomProduct.promotionType}
+                  </p>
+                  <div className="flex flex-col gap-[7px] justify-end items-end pt-[3px] mr-[10px] text-nowrap">
+                    <p className="flex text-accent font-bold text-[27px]">
+                      {String(randomProduct.priceDiscount).replace(
+                        /\B(?=(\d{3})+(?!\d))/g,
+                        " "
+                      )}
+                      <span className="pl-[1px]">₴</span>
+                    </p>
+                    <div className="relative">
+                      <p className="text-lightGray text-[14px] relative z-1">
+                        {String(randomProduct.priceStart).replace(
+                          /\B(?=(\d{3})+(?!\d))/g,
+                          " "
+                        )}{" "}
+                        ₴
+                      </p>
+                      <hr className="absolute top-1/2 left-0 w-full h-[4px] text-lightGray transform -rotate-12" />
                     </div>
-                  </Link>
-                );
-              }
-            })}
+                  </div>
+                </div>
+                <div className="flex items-center justify-center mt-[8px] mb-[4px]">
+                  <img src={randomProduct.image[0]} alt={randomProduct.name} />
+                </div>
+                <div className="flex items-center justify-center">
+                  <p className="font-bold text-[18px] max-w-[210px] text-center mb-[7px]">
+                    {randomProduct.name}
+                  </p>
+                </div>
+                <div className="bg-basic flex text-center justify-center p-[14px]">
+                  <p>
+                    Акция действует до <br />
+                    <span className="text-accent">31.12.2024</span>
+                  </p>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </Container>

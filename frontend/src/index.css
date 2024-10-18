@@ -54,8 +54,8 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  background-color: #4CAF50; /* Цвет фона для отмеченного квадратика */
-  border: 2px solid #4CAF50; /* Цвет границы для отмеченного квадратика */
+  background-color: #4caf50; /* Цвет фона для отмеченного квадратика */
+  border: 2px solid #4caf50; /* Цвет границы для отмеченного квадратика */
 }
 
 input[type="checkbox"]:checked:after {
@@ -66,4 +66,18 @@ input[type="checkbox"]:checked:after {
   width: 6px; /* Ширина галочки */
   height: 6px; /* Высота галочки */
   background-color: white; /* Цвет галочки */
+}
+
+@keyframes bounceUpDown {
+  0%,
+  100% {
+    transform: translateY(13px);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+.animate-bounce-up-down {
+  animation: bounceUpDown 3s infinite;
 }

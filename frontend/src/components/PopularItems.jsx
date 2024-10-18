@@ -87,7 +87,7 @@ const PopularItems = () => {
           </button>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-[35px] gap-[30px] place-items-center">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-[35px] gap-[30px]">
           {productsToDisplay.length === 0 ? (
             <p>Нет популярных товаров в данной категории.</p>
           ) : (

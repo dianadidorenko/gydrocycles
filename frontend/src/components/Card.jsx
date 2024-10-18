@@ -1,5 +1,7 @@
-import { Heart, Search, ShoppingCart } from "lucide-react";
+import { Heart, Search, ShoppingCartIcon } from "lucide-react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 const Card = ({ item, tableView }) => {
   const sizeClasses = {
@@ -7,9 +9,12 @@ const Card = ({ item, tableView }) => {
     sm: 20,
     lg: 26,
   };
+
+  const { currency } = useContext(ShopContext);
+
   return (
     <Link
-      to={`/product/${item.id}`}
+      to={`/product/${item._id}`}
       className={`max-h-[430px] ${tableView === "grid" ? "" : ""}`}
     >
       <div
@@ -43,13 +48,15 @@ const Card = ({ item, tableView }) => {
         </div>
 
         <div className="flex items-center justify-center mt-[8px] mb-[4px]">
-          {item.image && (
-            <img
-              src={item.image[0]}
-              alt={item.name}
-              className="max-w-[100px] xsSm:max-w-[175px] md:max-w-[250px] object-cover"
-            />
-          )}
+          <div className="overflow-hidden">
+            {item.image && (
+              <img
+                src={item.image[0]}
+                alt={item.name}
+                className="max-w-[100px] xsSm:max-w-[175px] md:max-w-[250px] object-cover hover:scale-110 transition ease-in-out"
+              />
+            )}
+          </div>
         </div>
 
         <div
@@ -66,7 +73,7 @@ const Card = ({ item, tableView }) => {
             tableView === "column" && (
               <p className="flex justify-center gap-1 font-bold text-[18px] xs:text-[22px] md:text-[27px] pt-[26px]">
                 {String(item.price).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
-                <span>₴</span>
+                <span>{currency}</span>
               </p>
             )}
 
@@ -83,33 +90,48 @@ const Card = ({ item, tableView }) => {
         </div>
 
         {item.priceStart && (
-          <p className="flex gap-1 font-bold text-[27px] pt-[26px]">
+          <p className="flex justify-center gap-1 font-bold text-[27px] pt-[26px] text-center">
             {String(item.priceStart).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
-            <span>₴</span>
+            <span>{currency}</span>
           </p>
         )}
 
         {item.availability === "Нет в наличии" && tableView === "grid" && (
           <div className="flex flex-col items-center">
-            <p className="lowercase font-bold text-center">{item.availability}</p>
+            <p className="lowercase font-bold text-center">
+              {item.availability}
+            </p>
             <button className="pt-[13px] text-accent underline">
               Сообщить о поступленини
             </button>
           </div>
         )}
 
+        {item.availability === "Нет в наличии" &&
+          tableView !== "grid" &&
+          tableView !== "column" && (
+            <div className="flex flex-col items-center">
+              <p className="lowercase font-bold text-center">
+                {item.availability}
+              </p>
+              <button className="pt-[13px] text-accent underline">
+                Сообщить о поступленини
+              </button>
+            </div>
+          )}
+
         {item.price &&
           item.availability === "В наличии" &&
           tableView === "grid" && (
             <p className="flex justify-center gap-1 font-bold text-[18px] xs:text-[22px] sm:text-[27px] pt-[26px]">
               {String(item.price).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
-              <span>₴</span>
+              <span>{currency}</span>
             </p>
           )}
 
         {item.availability === "В наличии" && (
           <div className="absolute bottom-0 right-0 rounded-ss-xl bg-accent px-[15px] py-[7px]">
-            <ShoppingCart className="text-white" />
+            <ShoppingCartIcon className="text-white" />
             <style jsx="true">{`
               @media (min-width: 320px) {
                 .lucide-shopping-cart {

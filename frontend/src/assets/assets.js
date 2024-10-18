@@ -121,7 +121,6 @@ export const products = [
     promotionType: "HIT",
     category: "Гидроциклы",
   },
-
   {
     _id: "12",
     name: "Гидроцикл SeaDoo Spark 2 X California green",
@@ -194,7 +193,8 @@ export const products = [
     year: 2018,
     brand: "Spark 2",
     model: "SeaDoo Spark 2",
-    price: 412935,
+    priceStart: 128571,
+    priceDiscount: 112000,
     promotionType: "NEW",
     maxSpeed: 150,
     availability: "Нет в наличии",
@@ -239,6 +239,18 @@ export const products = [
     availability: "В наличии",
     image: [p_img6],
     category: "Гидроциклы",
+  },
+  {
+    _id: "18",
+    name: "Лодочный мотор Suzuki DF9.9BRS",
+    brand: "Suzuki",
+    category: "Моторы",
+    priceStart: 258571,
+    priceDiscount: 234000,
+    promotionType: "АКЦИЯ",
+    image: [engine_img1],
+    popular: true,
+    availability: "В наличии",
   },
   {
     _id: "4",
