@@ -13,6 +13,7 @@ export default {
       "320px": "321px",
       verySm: "320px",
       xs: "380px",
+      xs2: "400px",
       xsSm: "500px",
       sm: "640px",
       md: "768px",

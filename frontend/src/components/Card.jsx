@@ -13,50 +13,47 @@ const Card = ({ item, tableView }) => {
   const { currency } = useContext(ShopContext);
 
   return (
-    <Link
-      to={`/product/${item._id}`}
-      className={`max-h-[430px] ${tableView === "grid" ? "" : ""}`}
-    >
+    <Link to={`/product/${item._id}`} className={`max-h-[430px]`}>
       <div
         className={`relative group border border-[#CDCDCD] hover:shadow-xl transition-all duration-300 cursor-pointer hover:text-accent 
         ${
           tableView === "column"
-            ? "flex items-center justify-between mdLg:justify-center gap-y-[15px] mdLg:gap-x-[35px] pt-[50px] pb-[50px] mdLg:pt-[50px] px-[20px] flex-col md:flex-row"
-            : "flex flex-col justify-between max-w-[271px] pb-[35px] min-h-[432px]"
+            ? "relative flex items-center justify-between mdLg:justify-center gap-y-[15px] mdLg:gap-x-[35px] pt-[50px] pb-[50px] mdLg:pt-[50px] px-[10px] mdLg:px-[20px] flex-col md:flex-row"
+            : "flex flex-col justify-between max-w-[271px] pb-[35px] xsSm:min-h-[432px] gap-y-[20px]"
         }`}
       >
-        {tableView === "column" && (
+        {tableView && (
           <div className="absolute right-2 top-2 p-2 flex items-end justify-end">
             <Heart />
           </div>
         )}
 
         <div
-          className={`flex ${tableView === "grid" ? "justify-end w-full" : ""}`}
+          className={`flex ${
+            tableView === "grid" ? "justify-end w-full" : ""
+          }`}
         >
-          {item.promotionType && tableView === "grid" && (
-            <div className="flex justify-between gap-[5px] sm:gap-[54px] items-start pr-[5px] w-full">
+          {item.promotionType && (
+            <div
+              className={`flex justify-between gap-[5px] sm:gap-[54px] items-start pr-[5px] w-full ${
+                tableView === "column" ? "absolute left-0 top-0" : ""
+              }`}
+            >
               <p className="flex items-center uppercase font-bold text-[12px] py-2 px-[20px] bg-accent text-white">
                 {item.promotionType}
               </p>
-
-              <div className="p-2">
-                <Heart />
-              </div>
             </div>
           )}
         </div>
 
         <div className="flex items-center justify-center mt-[8px] mb-[4px]">
-          <div className="overflow-hidden">
-            {item.image && (
-              <img
-                src={item.image[0]}
-                alt={item.name}
-                className="max-w-[100px] xsSm:max-w-[175px] md:max-w-[250px] object-cover hover:scale-110 transition ease-in-out"
-              />
-            )}
-          </div>
+          {item.image && (
+            <img
+              src={item.image[0]}
+              alt={item.name}
+              className="max-w-[80px] xs:max-w-[120px] xsSm:max-w-[175px] md:max-w-[250px] object-cover"
+            />
+          )}
         </div>
 
         <div
@@ -156,15 +153,15 @@ const Card = ({ item, tableView }) => {
         )}
 
         {/* Надпись при наведении */}
-        <div className="hidden xsSm:flex absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-opacity-90 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        {/* <div className="hidden xsSm:flex absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-white bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="text-main text-[16px] text-center text-wrap py-[18px] px-[25px] bg-white/90 md:text-[20px] rounded-[3px] shadow-[0_0_15px_0_rgba(0,0,0,0.2)]">
             посмотреть товар
           </span>
         </div>
 
-        <div className="flex xsSm:hidden absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-white bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_15px_0_rgba(0,0,0,0.2)]">
+        <div className="flex xsSm:hidden absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-white bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_15px_0_rgba(0,0,0,0.2)]">
           <Search size={35} />
-        </div>
+        </div> */}
       </div>
     </Link>
   );

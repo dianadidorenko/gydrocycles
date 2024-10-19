@@ -124,11 +124,11 @@ const Navbar = () => {
 
       {/* Sidebar menu for small screens */}
       <div
-        className={`h-full flex flex-col pr-[10px] absolute top-0 left-0 z-10 overflow-hidden overflow-y-scroll bg-white transition-all ${
+        className={`h-full flex flex-col pr-[10px] absolute top-0 left-0 z-50 overflow-hidden overflow-y-scroll bg-white transition-all ${
           show ? "w-full h-full" : "hidden -left-52"
         }`}
       >
-        <div className="shadow-xl tetx-[20px] relative">
+        <div className="shadow-xl text-[20px] relative">
           <X
             onClick={() => setShow(false)}
             className="w-[30px] absolute right-2 top-2 cursor-pointer hover:text-accent duration-300"
