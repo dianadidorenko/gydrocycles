@@ -13,13 +13,13 @@ const Card = ({ item, tableView }) => {
   const { currency } = useContext(ShopContext);
 
   return (
-    <Link to={`/product/${item._id}`} className={`max-h-[430px]`}>
+    <Link to={`/product/${item._id}`}>
       <div
-        className={`relative group border border-[#CDCDCD] hover:shadow-xl transition-all duration-300 cursor-pointer hover:text-accent 
+        className={`max-h-[430px] relative group border border-[#CDCDCD] hover:shadow-xl transition-all duration-300 cursor-pointer hover:text-accent 
         ${
           tableView === "column"
             ? "relative flex items-center justify-between mdLg:justify-center gap-y-[15px] mdLg:gap-x-[35px] pt-[50px] pb-[50px] mdLg:pt-[50px] px-[10px] mdLg:px-[20px] flex-col md:flex-row"
-            : "flex flex-col justify-between max-w-[271px] pb-[35px] xsSm:min-h-[432px] gap-y-[20px]"
+            : "flex flex-col justify-between max-w-[271px] pb-[35px] xsSm:min-h-[432px] gap-y-[20px] xs2:gap-y-0"
         }`}
       >
         {tableView && (
@@ -29,9 +29,7 @@ const Card = ({ item, tableView }) => {
         )}
 
         <div
-          className={`flex ${
-            tableView === "grid" ? "justify-end w-full" : ""
-          }`}
+          className={`flex ${tableView === "grid" ? "justify-end w-full" : ""}`}
         >
           {item.promotionType && (
             <div

@@ -10,7 +10,7 @@ import Product from "./pages/Product";
 
 function App() {
   return (
-    <div>
+    <>
       <Container>
         <Navbar />
         <Routes>
@@ -21,9 +21,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </Container>
-
       <Footer />
-    </div>
+    </>
   );
 }
 
