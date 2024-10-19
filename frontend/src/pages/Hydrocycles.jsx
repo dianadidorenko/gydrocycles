@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Dice4, List, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Dice4,
+  List,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
@@ -236,7 +243,7 @@ const Hydrocycles = () => {
   return (
     <section>
       <Container>
-        <PagesNav title={"Квадроциклы"} />
+        <PagesNav title={"Квадроциклы"} category={"hydrocycles"} />
         <h1 className="text-main text-[30px] font-bold pb-[26px] px-[10px]">
           Гидроциклы
         </h1>
@@ -279,7 +286,7 @@ const Hydrocycles = () => {
         <div
           className={`flex px-[10px] items-start ${
             tableView === "grid" ? "gap-[10px]" : "gap-[15px] sm:gap-[50px]"
-          } pb-[77px]`}
+          }`}
         >
           {/* Фильтр */}
           <div className="hidden xs2:flex flex-col justify-between max-w-[120px] xsSm:max-w-[250px] xsSm:w-full sm:max-w-[300px] gap-y-[41px]">
@@ -720,7 +727,7 @@ const Hydrocycles = () => {
           </div>
 
           {/* Список товаров */}
-          <div className="flex flex-col gap-[50px] w-full">
+          <div className="flex flex-col w-full">
             <div
               className={`gap-[30px] ${
                 tableView === "grid"
@@ -733,28 +740,30 @@ const Hydrocycles = () => {
               ))}
             </div>
 
-            {/* Пагинация */}
-            <div className="flex justify-center items-center py-4">
+            {/* Пагинация  */}
+            <div className="flex justify-center items-center gap-[3px] md:gap-[15px] py-4 mt-[50px] md:mt-[100px] mb-[39px] md:mb-[69px]">
               <button
                 onClick={() => paginate(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`px-4 py-2 border ${
+                className={`px-1 md:px-4 py-1 md:border rounded-[3px] ${
                   currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
                 }`}
               >
-                Назад
+                <span className="hidden md:flex">Назад</span>
+                <ChevronLeft className="flex md:hidden" />
               </button>
-              <span className="mx-2">{`Страница ${currentPage} из ${totalPages}`}</span>
+              <span>{`Страница ${currentPage} из ${totalPages}`}</span>
               <button
                 onClick={() => paginate(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`px-4 py-2 border ${
+                className={`px-1 md:px-4 py-1 md:border rounded-[3px] ${
                   currentPage === totalPages
                     ? "cursor-not-allowed opacity-50"
                     : ""
                 }`}
               >
-                Вперед
+                <span className="hidden md:flex">Вперед</span>
+                <ChevronRight className="flex md:hidden" />
               </button>
             </div>
           </div>

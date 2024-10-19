@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ChartNoAxesColumn, Heart, Star } from "lucide-react";
+import { ChartNoAxesColumn, Heart, Search, Star } from "lucide-react";
 
 import { ShopContext } from "../context/ShopContext";
 import Container from "../components/Container";
 import PagesNav from "../components/PagesNav";
+import { categoriesProductPage, storesInfoProductPage } from "../assets/assets";
 
 const Product = () => {
   const { productId } = useParams();
@@ -12,6 +13,12 @@ const Product = () => {
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [active, setActive] = useState(true);
+  const [activeTab, setActiveTab] = useState(3);
+
+  // Функция для установки активного таба
+  const handleTabClick = (index) => {
+    setActiveTab(index);
+  };
 
   const fetchProductData = async () => {
     products.map((item) => {
@@ -31,7 +38,6 @@ const Product = () => {
     <div className="transition-opacity ease-in duration-500 opacity-100">
       <Container>
         <PagesNav title={productData.category} model={productData.name} />
-
         {/* Product Data */}
         <div className="flex gap-[100px] justify-between flex-col sm:flex-row pb-[80px]">
           {/* Product Images */}
@@ -193,6 +199,123 @@ const Product = () => {
             <button className="uppercase text-[14px] bg-accent text-white border-[3px] py-[16px] px-[53px]">
               Купить
             </button>
+          </div>
+        </div>
+
+        <div>
+          <ul className="hidden md:flex items-center justify-between gap-[20px] lg:gap-[60px] bg-basic py-[23px] px-[33px]">
+            {categoriesProductPage.map((category, index) => (
+              <li
+                className="relative cursor-pointer"
+                key={index}
+                onClick={() => handleTabClick(index)}
+              >
+                <p
+                  className={`text-gray-800 ${
+                    activeTab === index ? "font-bold" : "opacity-60"
+                  }`}
+                >
+                  {category.category}
+                </p>
+                {activeTab === index && (
+                  <span className="absolute left-0 right-0 bottom-[-5px] h-[2px] bg-accent" />
+                )}
+              </li>
+            ))}
+          </ul>
+
+          <div className="pt-[50px] pl-[38px] pb-[100px]">
+            {activeTab === 0 && <div>Контент "О товаре"</div>}
+            {activeTab === 1 && <div>Контент "Характеристики"</div>}
+            {activeTab === 2 && <div>Контент "Отзывы"</div>}
+            {activeTab === 3 && (
+              <div className="flex flex-col">
+                <div className="flex items-center justify-between pr-[155px] mb-[50px]">
+                  <div className="flex items-center gap-[17px] opacity-70 text-[17px]">
+                    Магазин
+                    <div className="bg-basic p-[4px] flex justify-between items-center w-full rounded-[3px]">
+                      <input
+                        type="text"
+                        className="w-full bg-basic outline-none pl-[17px]"
+                      />
+                      <Search color="#C4C4C4" size={23} />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-[54px] max-w-[432px]">
+                    <div className="flex items-center gap-[15px]">
+                      <input type="checkbox" id="today" />
+                      <label htmlFor="today" className="opacity-70 text-[17px]">
+                        Забрать сегодня
+                      </label>
+                    </div>
+                    <div className="flex items-center gap-[15px]">
+                      <input type="checkbox" id="week" />
+                      <label htmlFor="week" className="opacity-70 text-[17px]">
+                        Забрать сегодня
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center mb-[41px]">
+                  <h2 className="w-[250px]">Адрес</h2>
+                  <h2 className="w-[250px]">Режим работы</h2>
+                  <h2 className="w-[250px]">Доступно</h2>
+                  <h2 className="w-[250px]">Количество</h2>
+                </div>
+                <div className="flex flex-col">
+                  {storesInfoProductPage.map((storeInfo, index) => {
+                    const storeAvailability = productData.storeInfo?.find(
+                      (productInfo) =>
+                        productInfo.storeNumber === storeInfo.storeNumber
+                    );
+
+                    return (
+                      <div
+                        key={index}
+                        className="flex justify-between flex-col md:flex-row items-start py-[20px] border-b border-lightGray"
+                      >
+                        {/* Адрес */}
+                        <span className="w-[200px]">{storeInfo.address}</span>
+                        {/* Режим работы */}
+                        <div className="flex flex-col w-[200px]">
+                          <div className="flex gap-[10px]">
+                            <span>{storeInfo.workingDays}</span>
+                            <span>{storeInfo.workingHours}</span>
+                          </div>
+                          <div className="flex gap-[10px]">
+                            <span>{storeInfo.weekendDays}</span>
+                            <span>{storeInfo.weekendHours}</span>
+                          </div>
+                        </div>
+                        {/* Доступно */}
+                        <span className="w-[200px]">
+                          {storeAvailability
+                            ? storeAvailability.availabilityStore
+                              ? storeAvailability.availabilityStore
+                              : "Нет в наличии"
+                            : "Нет в наличии"}
+                        </span>
+                        {/* Количество */}
+                        <span className="w-[200px]">
+                          {storeAvailability
+                            ? storeAvailability.availabilityQuantity
+                              ? storeAvailability.availabilityQuantity
+                              : "0"
+                            : "0"}
+                        </span>
+                        <button className="text-[13px] uppercase py-[10px] px-[40px] bg-accent text-white">
+                          Купить
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {activeTab === 4 && <div>Контент "Доставка"</div>}
+            {activeTab === 5 && <div>Контент "Сервис"</div>}
+            {activeTab === 6 && <div>Контент "Гарантия"</div>}
           </div>
         </div>
       </Container>

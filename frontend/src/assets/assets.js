@@ -79,6 +79,18 @@ export const products = [
     availability: "В наличии",
     image: [p_img1],
     category: "Гидроциклы",
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "2",
@@ -100,6 +112,18 @@ export const products = [
     image: [p_img2],
     category: "Гидроциклы",
     popularCategory: true,
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "3",
@@ -120,6 +144,18 @@ export const products = [
     image: [p_img3],
     promotionType: "HIT",
     category: "Гидроциклы",
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "12",
@@ -141,6 +177,18 @@ export const products = [
     image: [p_img4],
     category: "Гидроциклы",
     popularCategory: true,
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "13",
@@ -160,6 +208,18 @@ export const products = [
     availability: "В наличии",
     image: [p_img5],
     category: "Гидроциклы",
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "14",
@@ -179,6 +239,18 @@ export const products = [
     availability: "В наличии",
     image: [p_img6],
     category: "Гидроциклы",
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "15",
@@ -200,6 +272,18 @@ export const products = [
     image: [p_img4],
     category: "Гидроциклы",
     popularCategory: true,
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "16",
@@ -219,6 +303,18 @@ export const products = [
     availability: "В наличии",
     image: [p_img5],
     category: "Гидроциклы",
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "17",
@@ -238,6 +334,18 @@ export const products = [
     availability: "В наличии",
     image: [p_img6],
     category: "Гидроциклы",
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "18",
@@ -269,6 +377,18 @@ export const products = [
     availability: "В наличии",
     image: [p_img1],
     category: "Гидроциклы",
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "20",
@@ -290,6 +410,18 @@ export const products = [
     image: [p_img2],
     category: "Гидроциклы",
     popularCategory: true,
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "21",
@@ -310,6 +442,18 @@ export const products = [
     image: [p_img3],
     promotionType: "HIT",
     category: "Гидроциклы",
+    storeInfo: [
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "2",
+      },
+      {
+        storeNumber: "4",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "3",
+      },
+    ],
   },
   {
     _id: "4",
@@ -379,5 +523,50 @@ export const products = [
     availability: "Нет в наличии",
     image: [parts_img1],
     popular: true,
+  },
+];
+
+export const categoriesProductPage = [
+  { category: "О товаре" },
+  { category: "Характеристики" },
+  { category: "Отзывы" },
+  { category: "Самовывоз" },
+  { category: "Доставка" },
+  { category: "Сервис" },
+  { category: "Гарантия" },
+];
+
+export const storesInfoProductPage = [
+  {
+    storeNumber: "1",
+    address: "Одесса, ул. Проспект Шевченко 24",
+    workingDays: "пн-сб:",
+    weekendDays: "вс:",
+    workingHours: "08:00-19:00",
+    weekendHours: "09:00-17:00",
+  },
+  {
+    storeNumber: "2",
+    address: "Одесса, ул. Екатериненская 63/2",
+    workingDays: "пн-сб:",
+    weekendDays: "вс:",
+    workingHours: "08:00-19:00",
+    weekendHours: "09:00-17:00",
+  },
+  {
+    storeNumber: "3",
+    address: "Киев, ул. Слабоженко 5",
+    workingDays: "пн-сб:",
+    weekendDays: "вс:",
+    workingHours: "08:00-19:00",
+    weekendHours: "09:00-17:00",
+  },
+  {
+    storeNumber: "4",
+    address: "Львов, ул. Арнаусткая 168",
+    workingDays: "пн-сб:",
+    weekendDays: "вс:",
+    workingHours: "08:00-19:00",
+    weekendHours: "09:00-17:00",
   },
 ];
