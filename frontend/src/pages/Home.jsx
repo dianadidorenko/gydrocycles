@@ -3,6 +3,7 @@ import Banner from "../components/Banner";
 import Categories from "../components/Categories";
 import Container from "../components/Container";
 import PopularItems from "../components/PopularItems";
+import RelatedItems from "../components/RelatedItems";
 import Search from "../components/Search";
 import { Link } from "react-router-dom";
 
@@ -16,7 +17,7 @@ const Home = () => {
 
       <Container>
         <Link to={"/parts"}>
-          <div className="w-full">
+          <div className="w-full pb-[100px]">
             <img
               src={assets.banner2}
               alt="banner"
@@ -31,7 +32,7 @@ const Home = () => {
         </Link>
       </Container>
 
-      <PopularItems />
+      <RelatedItems />
     </div>
   );
 };

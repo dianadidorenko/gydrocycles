@@ -18,7 +18,11 @@ import category_5 from "./category_5.png";
 import category_6 from "./category_6.png";
 import accessories_img1 from "./accessories_img1.png";
 import accessories_img2 from "./accessories_img2.png";
-import accessories_img3 from "./accessories_img3.png";
+import accessories_img4 from "./accessories_img4.png";
+import electronics_img1 from "./electronics_img1.png";
+import electronics_img2 from "./electronics_img2.png";
+import electronics_img3 from "./electronics_img3.png";
+import electronics_img4 from "./electronics_img4.png";
 import parts_img1 from "./parts_img1.png";
 
 export const assets = {
@@ -36,7 +40,11 @@ export const assets = {
   category_6,
   accessories_img1,
   accessories_img2,
-  accessories_img3,
+  accessories_img4,
+  electronics_img1,
+  electronics_img2,
+  electronics_img3,
+  electronics_img4,
   parts_img1,
 };
 
@@ -61,6 +69,7 @@ export const navCategories = [
 ];
 
 export const products = [
+  // Гидроциклы
   {
     _id: "1",
     name: "Гидроцикл BRP SeaDoo GTI 155hp SE Long Blue Metallic",
@@ -348,18 +357,6 @@ export const products = [
     ],
   },
   {
-    _id: "18",
-    name: "Лодочный мотор Suzuki DF9.9BRS",
-    brand: "Suzuki",
-    category: "Моторы",
-    priceStart: 258571,
-    priceDiscount: 234000,
-    promotionType: "АКЦИЯ",
-    image: [engine_img1],
-    popular: true,
-    availability: "В наличии",
-  },
-  {
     _id: "19",
     name: "Гидроцикл BRP SeaDoo GTI 155hp SE Long Blue Metallic",
     code: "366666-2",
@@ -455,11 +452,26 @@ export const products = [
       },
     ],
   },
+  // Моторы
+  {
+    _id: "18",
+    name: "Лодочный мотор Suzuki DF9.9BRS",
+    brand: "Suzuki",
+    category: "Моторы",
+    subCategory: "Гидроциклы",
+    priceStart: 258571,
+    priceDiscount: 234000,
+    promotionType: "АКЦИЯ",
+    image: [engine_img1],
+    popular: true,
+    availability: "В наличии",
+  },
   {
     _id: "4",
     name: "Лодочный мотор Suzuki DF9.9BRS",
     brand: "Suzuki",
     category: "Моторы",
+    subCategory: "Гидроциклы",
     priceStart: 128571,
     priceDiscount: 112000,
     promotionType: "АКЦИЯ",
@@ -467,31 +479,63 @@ export const products = [
     popular: true,
     availability: "В наличии",
   },
+  // Электроника
   {
-    _id: "5",
-    name: "Снегоход",
+    _id: "10",
+    name: "BRP Audio-Premium System",
+    priceStart: "68000",
+    category: "Электроника",
+    subCategory: "Гидроциклы",
     availability: "В наличии",
+    image: [electronics_img4],
+    popular: true,
   },
   {
-    _id: "6",
-    name: "Квадроцикл",
-    availability: "В наличии",
+    _id: "22",
+    name: "BRP Audio-портативная система",
+    category: "Электроника",
+    subCategory: "Гидроциклы",
+    promotionType: "SALE",
+    availability: "Нет в наличии",
+    image: [electronics_img1],
+    popular: true,
   },
   {
-    _id: "7",
-    name: "Катер",
+    _id: "23",
+    name: "Garmin Echomap Plus 62cv",
+    priceStart: "45800",
+    category: "Электроника",
+    subCategory: "Гидроциклы",
     availability: "В наличии",
+    image: [electronics_img2],
+    popular: true,
   },
   {
-    _id: "7",
-    name: "Вездеход",
-    availability: "В наличии",
+    _id: "24",
+    name: "RF D.E.S.S.TM Key",
+    category: "Электроника",
+    promotionType: "SALE",
+    availability: "Нет в наличии",
+    image: [electronics_img3],
+    popular: true,
   },
+  // Инструменты
+  {
+    _id: "11",
+    name: "Спасательное снаряжение",
+    category: "Инструменты",
+    promotionType: "SALE",
+    availability: "Нет в наличии",
+    image: [parts_img1],
+    popular: true,
+  },
+  // Аксессуары
   {
     _id: "8",
     name: "Водонепроницаемый рюкзак",
     priceStart: "9800",
     category: "Аксессуары",
+    subCategory: "Гидроциклы",
     availability: "В наличии",
     image: [accessories_img1],
     popular: true,
@@ -501,27 +545,20 @@ export const products = [
     name: "Спасательный жилет BRP Men's Airflow PFD",
     priceStart: "6900",
     category: "Аксессуары",
+    subCategory: "Гидроциклы",
     promotionType: "SALE",
     availability: "В наличии",
     image: [accessories_img2],
     popular: true,
   },
   {
-    _id: "10",
-    name: "BRP Audio-Premium System",
-    priceStart: "68000",
-    category: "Электроника",
+    _id: "25",
+    name: "Мужской костюм 3мм",
+    priceStart: "7000",
+    category: "Аксессуары",
+    subCategory: "Гидроциклы",
     availability: "В наличии",
-    image: [accessories_img3],
-    popular: true,
-  },
-  {
-    _id: "11",
-    name: "Спасательное снаряжение",
-    category: "Инструменты",
-    promotionType: "SALE",
-    availability: "Нет в наличии",
-    image: [parts_img1],
+    image: [accessories_img4],
     popular: true,
   },
 ];
@@ -538,14 +575,22 @@ export const categoriesProductPage = [
 
 export const storesInfoProductPage = [
   {
+    addressName: "Адрес",
     storeNumber: "1",
     address: "Одесса, ул. Проспект Шевченко 24",
+    workingDaysName: "Режим работы",
     workingDays: "пн-сб:",
     weekendDays: "вс:",
     workingHours: "08:00-19:00",
     weekendHours: "09:00-17:00",
+    availability: "Доступно",
+    quantity: "Количество ",
   },
   {
+    addressName: "Адрес",
+    workingDaysName: "Режим работы",
+    availability: "Доступно",
+    quantity: "Количество ",
     storeNumber: "2",
     address: "Одесса, ул. Екатериненская 63/2",
     workingDays: "пн-сб:",
@@ -554,6 +599,10 @@ export const storesInfoProductPage = [
     weekendHours: "09:00-17:00",
   },
   {
+    addressName: "Адрес",
+    workingDaysName: "Режим работы",
+    availability: "Доступно",
+    quantity: "Количество ",
     storeNumber: "3",
     address: "Киев, ул. Слабоженко 5",
     workingDays: "пн-сб:",
@@ -562,6 +611,10 @@ export const storesInfoProductPage = [
     weekendHours: "09:00-17:00",
   },
   {
+    addressName: "Адрес",
+    workingDaysName: "Режим работы",
+    availability: "Доступно",
+    quantity: "Количество ",
     storeNumber: "4",
     address: "Львов, ул. Арнаусткая 168",
     workingDays: "пн-сб:",

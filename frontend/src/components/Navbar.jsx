@@ -24,10 +24,10 @@ const Navbar = () => {
         <div className="px-[10px] pt-[29px] pb-[13px] md:px-0 flex items-center justify-between py-[10px] md:py-[23px] font-bold">
           <Menu
             onClick={() => setShow(true)}
-            className="min-w-[33px] block md:hidden"
+            className="min-w-[33px] block mdLg:hidden"
             size={40}
           />
-          <ul className="hidden md:flex items-center gap-[10px] md:gap-[25px] lg:gap-[50px]">
+          <ul className="hidden mdLg:flex items-center gap-[10px] md:gap-[25px] lg:gap-[50px]">
             <NavLink to="/shops">
               <p>Магазины</p>
             </NavLink>
@@ -57,22 +57,26 @@ const Navbar = () => {
             <p>Одесса, ул.Толбухина 135</p>
           </div>
 
-          <div className="flex items-center gap-[10px] group relative">
+          <div className="flex items-center gap-[10px]">
             <Heart size={30} />
-            <User size={30} />
-            <div className="group-hover:block hidden absolute dropdown-menu -right-2 top-6 pt-4 z-10">
-              <div className="flex flex-col gap-3 w-36 py-3 px-5 bg-[#eee] border border-[#b6b6b6]">
-                <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
-                  <User size={20} /> Профиль
-                </p>
-                <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
-                  <Package size={20} /> Заказы
-                </p>
-                <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
-                  <LogOut size={20} /> Выйти
-                </p>
+            <div className="group relative">
+              <User size={30} />
+
+              <div className="group-hover:block hidden absolute dropdown-menu -right-2 top-6 pt-4 z-10">
+                <div className="flex flex-col gap-3 w-36 py-3 px-5 bg-[#eee] border border-[#b6b6b6]">
+                  <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
+                    <User size={20} /> Профиль
+                  </p>
+                  <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
+                    <Package size={20} /> Заказы
+                  </p>
+                  <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
+                    <LogOut size={20} /> Выйти
+                  </p>
+                </div>
               </div>
             </div>
+
             <div>
               <Link to={"/cart"} className="relative">
                 <FiShoppingCart size={30} className="w-[30px]" />

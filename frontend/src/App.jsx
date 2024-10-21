@@ -10,19 +10,19 @@ import Product from "./pages/Product";
 
 function App() {
   return (
-    <>
+    <div>
       <Container>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/hydrocycles" element={<Hydrocycles />} />
-          <Route path="/product/:productId" element={<Product />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
       </Container>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/hydrocycles" element={<Hydrocycles />} />
+        <Route path="/product/:productId" element={<Product />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 

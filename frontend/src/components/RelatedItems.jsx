@@ -4,13 +4,13 @@ import { products } from "../assets/assets";
 import Container from "../components/Container.jsx";
 import Card from "./Card";
 
-const PopularItems = () => {
+const RelatedItems = () => {
   const [searchType, setSearchType] = useState("Электроника");
   const [visibleCount, setVisibleCount] = useState(4);
 
   // Фильтруем товары по выбранной категории и популярности
   const filteredProducts = products.filter(
-    (item) => item.category === searchType && item.popular
+    (item) => item.category === searchType && item.subCategory
   );
 
   // Функция для показа еще товаров
@@ -22,10 +22,10 @@ const PopularItems = () => {
   const productsToDisplay = filteredProducts.length > 0 ? filteredProducts : [];
 
   return (
-    <section className="py-[80px] px-[10px]">
+    <section className="pb-[80px] px-[10px]">
       <Container>
         <h2 className="text-[25px] font-bold text-center xsSm:text-left">
-          Популярные товары
+          С этим товаром покупают
         </h2>
 
         <div className="flex gap-[30px] sm:gap-[50px] overflow-x-scroll">
@@ -43,6 +43,7 @@ const PopularItems = () => {
               <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"></span>
             )}
           </button>
+
           <button
             onClick={() => {
               setSearchType("Электроника");
@@ -57,6 +58,7 @@ const PopularItems = () => {
               <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"></span>
             )}
           </button>
+
           <button
             onClick={() => {
               setSearchType("Инструменты");
@@ -71,6 +73,7 @@ const PopularItems = () => {
               <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"></span>
             )}
           </button>
+
           <button
             onClick={() => {
               setSearchType("Аксессуары");
@@ -114,4 +117,4 @@ const PopularItems = () => {
   );
 };
 
-export default PopularItems;
+export default RelatedItems;

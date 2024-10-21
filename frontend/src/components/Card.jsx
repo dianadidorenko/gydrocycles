@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
-const Card = ({ item, tableView }) => {
+const Card = ({ item, tableView, swiper = false }) => {
   const sizeClasses = {
     verySm: 16,
     sm: 20,
@@ -15,16 +15,16 @@ const Card = ({ item, tableView }) => {
   return (
     <Link to={`/product/${item._id}`}>
       <div
-        className={`max-h-[430px] relative group border border-[#CDCDCD] hover:shadow-xl transition-all duration-300 cursor-pointer hover:text-accent 
+        className={`w-full sm:max-w-[100%] max-h-[430px] relative group border border-[#CDCDCD] hover:shadow-xl transition-all duration-300 cursor-pointer hover:text-accent 
         ${
           tableView === "column"
             ? "relative flex items-center justify-between mdLg:justify-center gap-y-[15px] mdLg:gap-x-[35px] pt-[50px] pb-[50px] mdLg:pt-[50px] px-[10px] mdLg:px-[20px] flex-col md:flex-row"
-            : "flex flex-col justify-between max-w-[271px] pb-[35px] xsSm:min-h-[432px] gap-y-[20px] xs2:gap-y-0"
+            : "flex flex-col justify-between max-w-[271px] pb-[35px] xsSm:min-h-[432px] gap-y-[20px] md:gap-y-[5px]"
         }`}
       >
-        {tableView && (
-          <div className="absolute right-2 top-2 p-2 flex items-end justify-end">
-            <Heart />
+        {(tableView || swiper) && (
+          <div className="z-20 absolute right-2 top-2 p-2 flex items-end justify-end">
+            <Heart onClick={() => console.log("Heart")} />
           </div>
         )}
 
@@ -151,15 +151,15 @@ const Card = ({ item, tableView }) => {
         )}
 
         {/* Надпись при наведении */}
-        {/* <div className="hidden xsSm:flex absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-white bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="hidden xsSm:flex z-10 absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-white bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="text-main text-[16px] text-center text-wrap py-[18px] px-[25px] bg-white/90 md:text-[20px] rounded-[3px] shadow-[0_0_15px_0_rgba(0,0,0,0.2)]">
             посмотреть товар
           </span>
         </div>
 
-        <div className="flex xsSm:hidden absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-white bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_15px_0_rgba(0,0,0,0.2)]">
+        <div className="flex xsSm:hidden z-10 absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-white bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_15px_0_rgba(0,0,0,0.2)]">
           <Search size={35} />
-        </div> */}
+        </div>
       </div>
     </Link>
   );
