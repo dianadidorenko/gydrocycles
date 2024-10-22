@@ -13,9 +13,11 @@ import {
   X,
 } from "lucide-react";
 import { FiShoppingCart } from "react-icons/fi";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
+  const { getCartCount } = useContext(ShopContext);
   const [show, setShow] = useState(false);
 
   return (
@@ -81,7 +83,7 @@ const Navbar = () => {
               <Link to={"/cart"} className="relative">
                 <FiShoppingCart size={30} className="w-[30px]" />
                 <span className="absolute right-[3px] bottom-[22px] w-4 text-center leading-4 bg-accent text-white rounded-full aspect-square text-[10px] animate-bounce-up-down">
-                  0
+                  {getCartCount()}
                 </span>
               </Link>
             </div>

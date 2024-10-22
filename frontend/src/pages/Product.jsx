@@ -11,7 +11,7 @@ import Stores from "../components/Stores";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
 
@@ -235,7 +235,10 @@ const Product = () => {
             </div>
 
             <div className="flex justify-center">
-              <button className="uppercase text-[14px] bg-accent text-white border-[3px] py-[16px] px-[53px] mt-[30px] md:mt-0">
+              <button
+                onClick={() => addToCart(productData._id)}
+                className="uppercase text-[14px] bg-accent text-white border-[3px] py-[16px] px-[53px] mt-[30px] md:mt-0"
+              >
                 Купить
               </button>
             </div>
@@ -388,7 +391,9 @@ const Product = () => {
                         );
                       })
                     ) : (
-                      <p className="border-b-2 border-b-basic p-3 font-bold">Магазин не найдено</p>
+                      <p className="border-b-2 border-b-basic p-3 font-bold">
+                        Магазин не найдено
+                      </p>
                     )}
                   </>
                 )}
