@@ -123,6 +123,16 @@ export const products = [
     popularCategory: true,
     storeInfo: [
       {
+        storeNumber: "1",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "4",
+      },
+      {
+        storeNumber: "2",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "6",
+      },
+      {
         storeNumber: "3",
         availabilityStore: "В наличии",
         availabilityQuantity: "2",

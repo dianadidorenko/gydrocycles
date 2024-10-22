@@ -35,7 +35,9 @@ const Stores = ({ storesInfoProductPage, productData }) => {
         return (
           <div
             key={index}
-            className="flex justify-center gap-[25px] md:gap-0 items-center md:items-stretch text-center md:text-left md:justify-between flex-col md:flex-row py-[20px] border-b border-lightGray"
+            className={`flex justify-center gap-[25px] md:gap-0 ${
+              isMobile && "items-center"
+            } text-center md:text-left md:justify-between flex-col md:flex-row py-[20px] border-b border-lightGray`}
           >
             {/* Адрес */}
             <div className="flex w-full flex-row md:flex-col justify-between max-w-[400px] md:w-[260px]">
@@ -79,7 +81,7 @@ const Stores = ({ storesInfoProductPage, productData }) => {
             </div>
 
             {/* Доступно */}
-            <div className="flex w-full flex-row md:flex-col justify-between max-w-[400px] md:w-[170px]">
+            <div className="flex w-full flex-row md:flex-col justify-between md:justify-start max-w-[400px] md:w-[170px]">
               {storesInfoProductPage[0].availability && index === 0 && (
                 <h2 className="hidden md:mb-[41px] md:flex">
                   {storeInfo.availability}
@@ -91,7 +93,7 @@ const Stores = ({ storesInfoProductPage, productData }) => {
                   {storeInfo.availability}
                 </h2>
               )}
-              <span className="">
+              <span>
                 {storeAvailability
                   ? storeAvailability.availabilityStore
                     ? storeAvailability.availabilityStore
@@ -101,7 +103,7 @@ const Stores = ({ storesInfoProductPage, productData }) => {
             </div>
 
             {/* Количество */}
-            <div className="flex w-full flex-row md:flex-col justify-between max-w-[400px] md:w-[100px]">
+            <div className="flex w-full flex-row md:flex-col justify-between md:justify-start max-w-[400px] md:w-[100px]">
               {storesInfoProductPage[0].quantity && index === 0 && (
                 <h2 className="hidden md:mb-[41px] md:flex">
                   {storeInfo.quantity}
@@ -123,7 +125,10 @@ const Stores = ({ storesInfoProductPage, productData }) => {
             </div>
 
             <div className="flex justify-end items-end w-full xs2:w-min">
-              <button className="text-[14px] md:text-[13px] w-full uppercase py-[10px] px-[40px] bg-accent text-white">
+              <button
+                disabled={storeInfo.availability === 0}
+                className={`text-[14px] md:text-[13px] w-full uppercase py-[10px] px-[40px] bg-accent text-white`}
+              >
                 Купить
               </button>
             </div>

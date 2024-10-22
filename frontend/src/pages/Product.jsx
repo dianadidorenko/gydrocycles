@@ -14,10 +14,9 @@ const Product = () => {
   const { products, currency } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
+
   const [activeTab, setActiveTab] = useState(3);
   const [active, setActive] = useState(0);
-
-  const [showAllStores, setShowAllStores] = useState(false);
 
   const tabs = ["Характеристики", "Наличие в магазине"];
 
@@ -39,6 +38,24 @@ const Product = () => {
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
+
+  const [searchTerm, setSearchTerm] = useState(""); // Строка для хранения ввода
+  const [filteredStores, setFilteredStores] = useState([]); // Отфильтрованные магазины
+  const [searched, setSearched] = useState(false); // Флаг для отслеживания поиска
+
+  // Фильтрация магазинов
+  const handleSearch = () => {
+    setSearched(true); // Устанавливаем флаг, что поиск был выполнен
+
+    if (searchTerm) {
+      const filtered = storesInfoProductPage.filter((store) =>
+        store.address.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredStores(filtered);
+    } else {
+      setFilteredStores([]);
+    }
+  };
 
   return productData ? (
     <div className="transition-opacity ease-in duration-500 opacity-100">
@@ -217,16 +234,18 @@ const Product = () => {
               </div>
             </div>
 
-            <button className="uppercase text-[14px] bg-accent text-white border-[3px] py-[16px] px-[53px] mt-[30px] md:mt-0">
-              Купить
-            </button>
+            <div className="flex justify-center">
+              <button className="uppercase text-[14px] bg-accent text-white border-[3px] py-[16px] px-[53px] mt-[30px] md:mt-0">
+                Купить
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Categories Menu & Tabs*/}
         <div>
           {/* Categories Menu */}
-          <ul className="grid grid-cols-1 xs2:flex xs2:items-center xs2:justify-center md:justify-between xs2:flex-wrap gap-[15px] md:gap-[20px] lg:gap-[60px] bg-basic py-[23px] px-[10px] md:px-[33px]">
+          <ul className="grid grid-cols-1 xs2:flex xs2:items-center justify-center flex-wrap md:justify-between gap-[10px] md:gap-0 bg-basic py-[23px] px-[10px] lg:px-[33px]">
             {categoriesProductPage.map((category, index) => (
               <li
                 className="cursor-pointer"
@@ -295,15 +314,22 @@ const Product = () => {
                 <div className="flex flex-col mdLg:flex-row gap-y-[20px] items-center justify-between pr-[10px] mdLg:pr-[30px] lg:pr-[155px] mb-[50px]">
                   <div className="flex flex-col mdLg:flex-row items-center gap-[17px] opacity-70 text-[17px]">
                     Магазин
-                    <div className="bg-basic p-[4px] flex justify-between items-center w-full rounded-[3px]">
+                    <div className="bg-basic p-[4px] flex justify-between items-center w-full rounded-[3px] pr-[5px]">
                       <input
                         type="text"
-                        className="w-full bg-basic outline-none pl-[17px]"
+                        className="w-full bg-basic outline-none pl-[7px]"
+                        placeholder="Введите название"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                       />
-                      <Search color="#C4C4C4" size={23} />
+                      <Search
+                        size={23}
+                        onClick={handleSearch}
+                        className="text-[#C4C4C4] hover:text-main cursor-pointer duration-300"
+                      />
                     </div>
                   </div>
-                  <div className="flex flex-col mdLg:flex-row items-center gap-[20px] mdLg:gap-[54px] max-w-[432px]">
+                  <div className="flex flex-col mdLg:flex-row items-center gap-[20px] mdLg:gap-[54px]">
                     <div className="flex items-center gap-[15px]">
                       <input type="checkbox" id="today" />
                       <label htmlFor="today" className="opacity-70 text-[17px]">
@@ -318,6 +344,54 @@ const Product = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Результаты поиска */}
+                <h2 className="mb-[10px] font-bold text-center">
+                  Результат поиска:
+                </h2>
+                {searched && (
+                  <>
+                    {filteredStores.length > 0 ? (
+                      filteredStores.map((store, index) => {
+                        // Находим информацию о наличии товара в текущем магазине
+                        const storeAvailability = productData.storeInfo?.find(
+                          (item) => item.storeNumber === store.storeNumber
+                        );
+
+                        return (
+                          <div
+                            key={index}
+                            className="flex flex-col sm:flex-row justify-between items-center gap-[10px] bg-basic p-3 mb-[10px] border border-lightGray"
+                          >
+                            <p>{store.address}</p>
+                            <div className="flex flex-col">
+                              <p>{store.workingDaysName}</p>
+                              <p>
+                                {store.workingDays} {store.workingHours}
+                              </p>
+                              <p>
+                                {store.weekendDays} {store.weekendHours}
+                              </p>
+                            </div>
+                            <p>
+                              {storeAvailability
+                                ? storeAvailability.availabilityStore
+                                : "Нет в наличии"}
+                            </p>
+                            <p>
+                              {storeAvailability
+                                ? storeAvailability.availabilityQuantity
+                                : "0"}{" "}
+                              шт.
+                            </p>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <p className="border-b-2 border-b-basic p-3 font-bold">Магазин не найдено</p>
+                    )}
+                  </>
+                )}
 
                 <Stores
                   storesInfoProductPage={storesInfoProductPage}
