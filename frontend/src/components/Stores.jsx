@@ -2,24 +2,20 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Stores = ({ storesInfoProductPage, productData }) => {
-  // Состояние для управления показом всех магазинов на маленьких экранах
   const [showAllStores, setShowAllStores] = useState(false);
-  // Состояние для отслеживания ширины экрана
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Определяем, мобильный ли экран
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768); // Здесь 768px - условие для mobile
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Вызов при монтировании компонента
+    handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Количество магазинов для отображения на мобильном экране
   const visibleStores =
     isMobile && !showAllStores
       ? storesInfoProductPage.slice(0, 1)
@@ -31,6 +27,10 @@ const Stores = ({ storesInfoProductPage, productData }) => {
         const storeAvailability = productData.storeInfo?.find(
           (productInfo) => productInfo.storeNumber === storeInfo.storeNumber
         );
+
+        // Проверка доступности товара в магазине
+        const isAvailable =
+          storeAvailability && storeAvailability.availabilityQuantity > 0;
 
         return (
           <div
@@ -51,7 +51,7 @@ const Stores = ({ storesInfoProductPage, productData }) => {
                   {storeInfo.addressName}
                 </h2>
               )}
-              <span className="text-right max-w-[200px] xsSm:max-w-[100%] md:text-left">
+              <span className="text-right max-w-[200px] xsSm:max-w-[100%] md:text-left px-1">
                 {storeInfo.address}
               </span>
             </div>
@@ -115,7 +115,7 @@ const Stores = ({ storesInfoProductPage, productData }) => {
                 </h2>
               )}
 
-              <span className="">
+              <span>
                 {storeAvailability
                   ? storeAvailability.availabilityQuantity
                     ? storeAvailability.availabilityQuantity
@@ -124,10 +124,15 @@ const Stores = ({ storesInfoProductPage, productData }) => {
               </span>
             </div>
 
+            {/* Кнопка Купить */}
             <div className="flex justify-end items-end w-full xs2:w-min">
               <button
-                disabled={storeInfo.availability === 0}
-                className={`text-[14px] md:text-[13px] w-full uppercase py-[10px] px-[40px] bg-accent text-white`}
+                disabled={!isAvailable} // Кнопка отключена, если товара нет в наличии
+                className={`text-[14px] md:text-[13px] w-full uppercase py-[10px] px-[40px] ${
+                  isAvailable
+                    ? "bg-accent text-white"
+                    : "bg-[#6fa5f7] cursor-not-allowed text-white/40"
+                }`}
               >
                 Купить
               </button>

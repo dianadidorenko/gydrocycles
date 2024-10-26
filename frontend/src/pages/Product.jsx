@@ -27,6 +27,8 @@ const Product = () => {
 
   const fetchProductData = async () => {
     products.map((item) => {
+      console.log(item._id === productId);
+
       if (item._id === productId) {
         setProductData(item);
         setImage(item.image[0]);
@@ -35,17 +37,19 @@ const Product = () => {
     });
   };
 
+  console.log(productId);
+
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
 
-  const [searchTerm, setSearchTerm] = useState(""); // Строка для хранения ввода
-  const [filteredStores, setFilteredStores] = useState([]); // Отфильтрованные магазины
-  const [searched, setSearched] = useState(false); // Флаг для отслеживания поиска
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredStores, setFilteredStores] = useState([]);
+  const [searched, setSearched] = useState(false);
 
   // Фильтрация магазинов
   const handleSearch = () => {
-    setSearched(true); // Устанавливаем флаг, что поиск был выполнен
+    setSearched(true);
 
     if (searchTerm) {
       const filtered = storesInfoProductPage.filter((store) =>
@@ -83,21 +87,14 @@ const Product = () => {
             <div className="relative flex flex-col items-center">
               {productData.price && (
                 <p className="text-[40px] font-bold">
-                  {String(productData.price).replace(
-                    /\B(?=(\d{3})+(?!\d))/g,
-                    " "
-                  )}{" "}
-                  {currency}
+                  {Number(productData.price).toLocaleString("ru-RU")} {currency}
                 </p>
               )}
 
               {productData.priceStart && (
                 <>
                   <p className="text-lightGray text-3xl relative z-1">
-                    {String(productData.priceStart).replace(
-                      /\B(?=(\d{3})+(?!\d))/g,
-                      " "
-                    )}{" "}
+                    {Number(productData.priceStart).toLocaleString("ru-RU")}{" "}
                     {currency}
                   </p>
                   <hr className="absolute top-[20%] left-[20%] w-[50%] h-[6px] text-lightGray transform -rotate-12" />
@@ -106,10 +103,7 @@ const Product = () => {
 
               {productData.priceDiscount && (
                 <p className="mt-5 text-[40px] font-bold">
-                  {String(productData.priceDiscount).replace(
-                    /\B(?=(\d{3})+(?!\d))/g,
-                    " "
-                  )}{" "}
+                  {Number(productData.priceDiscount).toLocaleString("ru-RU")}
                   {currency}
                 </p>
               )}

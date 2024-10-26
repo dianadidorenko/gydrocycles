@@ -81,3 +81,7 @@ input[type="checkbox"]:checked:after {
 .animate-bounce-up-down {
   animation: bounceUpDown 3s infinite;
 }
+
+input {
+  outline-color: black;
+}

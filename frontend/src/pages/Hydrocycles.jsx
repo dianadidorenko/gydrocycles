@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Dice4,
   List,
@@ -12,10 +12,12 @@ import "rc-slider/assets/index.css";
 
 import PagesNav from "../components/PagesNav";
 import Container from "../components/Container";
-import { products } from "../assets/assets";
 import Card from "../components/Card";
+import { ShopContext } from "../context/ShopContext";
 
 const Hydrocycles = () => {
+  const { products } = useContext(ShopContext);
+
   const [tableView, setTableView] = useState("grid");
 
   const [selectedSort, setSelectedSort] = useState("");
@@ -88,25 +90,31 @@ const Hydrocycles = () => {
   // Акции
   const getUniquePromotions = () => {
     const promotions = products
-      .filter((item) => item.category === "Гидроциклы")
-      .map((item) => item.promotionType)
-      .filter((promotion) => promotion);
+      .filter(
+        (item) => item.category === "Гидроциклы" && item.promotionType !== ""
+      )
+      .map((item) => item.promotionType);
 
-    const uniquePromotions = Array.from(new Set(promotions));
-
-    return uniquePromotions;
+    return Array.from(new Set(promotions));
   };
+
   const handlePromotionChange = (promotion) => {
-    setSelectedPromotionType((prevSelected) => {
-      if (prevSelected === promotion) {
-        return "";
-      }
-      return promotion;
-    });
+    setSelectedPromotionType((prevSelected) =>
+      prevSelected === promotion ? "" : promotion
+    );
   };
+
   const uniquePromotions = getUniquePromotions();
 
-  //   // Страна
+  const displayedProducts = selectedPromotionType
+    ? products.filter(
+        (item) =>
+          item.category === "Гидроциклы" &&
+          item.promotionType === selectedPromotionType
+      )
+    : products.filter((item) => item.category === "Гидроциклы");
+
+  // Страна
   const handleCountryChange = (country) => {
     setSelectedCountries((prevSelected) =>
       prevSelected.includes(country)
@@ -170,56 +178,43 @@ const Hydrocycles = () => {
       if (
         filters.availability === "inStock" &&
         item.availability !== "В наличии"
-      ) {
+      )
         return false;
-      }
+
       if (
         filters.availability === "onOrder" &&
         item.availability !== "Нет в наличии"
-      ) {
+      )
         return false;
-      }
 
-      if (item.price < priceRange[0] || item.price > priceRange[1]) {
+      if (item.price < priceRange[0] || item.price > priceRange[1])
         return false;
-      }
 
-      if (selectedPower && item.power !== Number(selectedPower)) {
-        return false;
-      }
+      if (selectedPower && item.power !== Number(selectedPower)) return false;
 
       if (
         selectedEnginePower &&
         item.enginePower !== Number(selectedEnginePower)
-      ) {
+      )
         return false;
-      }
 
-      if (selectedMaxSpeed && item.maxSpeed !== Number(selectedMaxSpeed)) {
+      if (selectedMaxSpeed && item.maxSpeed !== Number(selectedMaxSpeed))
         return false;
-      }
 
-      if (selectedBrands.length > 0 && !selectedBrands.includes(item.brand)) {
+      if (selectedBrands.length > 0 && !selectedBrands.includes(item.brand))
         return false;
-      }
 
-      if (selectedModel.length > 0 && !selectedModel.includes(item.model)) {
+      if (selectedModel.length > 0 && !selectedModel.includes(item.model))
         return false;
-      }
 
-      if (
-        selectedPromotionType.length > 0 &&
-        !selectedPromotionType.includes(item.promotionType)
-      ) {
+      if (selectedPromotionType && item.promotionType !== selectedPromotionType)
         return false;
-      }
 
       if (
         selectedCountries.length > 0 &&
         !selectedCountries.includes(item.country)
-      ) {
+      )
         return false;
-      }
 
       return true;
     }
@@ -646,9 +641,9 @@ const Hydrocycles = () => {
 
               {showPromotions && (
                 <div className="flex items-center justify-start xsSm:justify-between gap-y-[8px] xsSm:gap-x-[10px] flex-wrap xsSm:flex-nowrap">
-                  {uniquePromotions.map((promotion, index) => (
+                  {uniquePromotions.map((promotion) => (
                     <div
-                      key={index}
+                      key={promotion}
                       className={`flex gap-[10px] items-center justify-center cursor-pointer uppercase font-bold text-[12px] py-[7px] px-[15px] w-full ${
                         selectedPromotionType === promotion
                           ? "bg-accent text-white"
@@ -717,8 +712,8 @@ const Hydrocycles = () => {
               )}
             </div>
 
-            {/* Выбрать, сбросить */}
-            <div className="flex flex-col items-center gap-y-[15px]">
+            {/* Сбросить */}
+            <div className="flex flex-col items-center gap-y-[15px] mb-8">
               <button className="relative text-[13px] text-lightGray">
                 Сбросить фильтр
                 <span className="absolute left-0 right-0 bottom-[-1px] h-[1px] bg-lightGray" />

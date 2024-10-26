@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#F9F9FC] pt-[17px] xsSm:pt-[42px] xsSm:pb-[22px]">
       <Container>
-        <div className="flex flex-col xsSm:flex-row justify-center lg:justify-between flex-wrap gap-x-[42px]">
+        <div className="flex flex-col xsSm:flex-row justify-center lg:justify-between flex-wrap gap-[42px]">
           <div className="flex flex-col gap-[42px] gap-y-[20px] px-[10px]">
             <p className="text-center xsSm:text-left font-bold text-main text-[14px]">
               Подпишитесь на рассылку <br /> и узнавайте об акциях быстрее

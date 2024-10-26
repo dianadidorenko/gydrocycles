@@ -85,19 +85,21 @@ const Cart = () => {
           )}
         </div>
 
-        <div className="flex justify-end my-20">
-          <div className="w-full sm:w-[450px]">
-            <CartTotal />
-            <div className="w-full text-end mt-[20px]">
-              <button
-                onClick={() => navigate("/place-order")}
-                className="bg-accent text-white px-[20px] py-[10px] uppercase"
-              >
-                Перейти к оплате
-              </button>
+        {cartData.length > 0 && (
+          <div className="flex justify-end my-20">
+            <div className="w-full sm:w-[450px]">
+              <CartTotal />
+              <div className="w-full text-end mt-[20px]">
+                <button
+                  onClick={() => navigate("/place-order")}
+                  className="bg-accent text-white px-[20px] py-[10px] uppercase"
+                >
+                  Перейти к оплате
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Container>
     </div>
   );

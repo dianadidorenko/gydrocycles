@@ -24,6 +24,7 @@ import electronics_img2 from "./electronics_img2.png";
 import electronics_img3 from "./electronics_img3.png";
 import electronics_img4 from "./electronics_img4.png";
 import parts_img1 from "./parts_img1.png";
+import stripe_logo from "./stripe_logo.png";
 
 export const assets = {
   logo,
@@ -46,6 +47,7 @@ export const assets = {
   electronics_img3,
   electronics_img4,
   parts_img1,
+  stripe_logo,
 };
 
 export const categories = [
@@ -90,14 +92,14 @@ export const products = [
     category: "Гидроциклы",
     storeInfo: [
       {
-        storeNumber: "3",
-        availabilityStore: "В наличии",
-        availabilityQuantity: "2",
-      },
-      {
-        storeNumber: "4",
+        storeNumber: "1",
         availabilityStore: "В наличии",
         availabilityQuantity: "3",
+      },
+      {
+        storeNumber: "3",
+        availabilityStore: "В наличии",
+        availabilityQuantity: "1",
       },
     ],
   },
@@ -165,14 +167,14 @@ export const products = [
     category: "Гидроциклы",
     storeInfo: [
       {
-        storeNumber: "3",
+        storeNumber: "1",
         availabilityStore: "В наличии",
-        availabilityQuantity: "2",
+        availabilityQuantity: "1",
       },
       {
-        storeNumber: "4",
+        storeNumber: "2",
         availabilityStore: "В наличии",
-        availabilityQuantity: "3",
+        availabilityQuantity: "1",
       },
     ],
   },
@@ -493,7 +495,7 @@ export const products = [
   {
     _id: "10",
     name: "BRP Audio-Premium System",
-    priceStart: "68000",
+    price: 68000,
     category: "Электроника",
     subCategory: "Гидроциклы",
     availability: "В наличии",
@@ -513,7 +515,7 @@ export const products = [
   {
     _id: "23",
     name: "Garmin Echomap Plus 62cv",
-    priceStart: "45800",
+    price: 45800,
     category: "Электроника",
     subCategory: "Гидроциклы",
     availability: "В наличии",
@@ -543,7 +545,7 @@ export const products = [
   {
     _id: "8",
     name: "Водонепроницаемый рюкзак",
-    priceStart: "9800",
+    price: 9800,
     category: "Аксессуары",
     subCategory: "Гидроциклы",
     availability: "В наличии",
@@ -553,7 +555,7 @@ export const products = [
   {
     _id: "9",
     name: "Спасательный жилет BRP Men's Airflow PFD",
-    priceStart: "6900",
+    price: 6900,
     category: "Аксессуары",
     subCategory: "Гидроциклы",
     promotionType: "SALE",
@@ -564,7 +566,7 @@ export const products = [
   {
     _id: "25",
     name: "Мужской костюм 3мм",
-    priceStart: "7000",
+    price: 7000,
     category: "Аксессуары",
     subCategory: "Гидроциклы",
     availability: "В наличии",

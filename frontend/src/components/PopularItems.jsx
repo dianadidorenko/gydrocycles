@@ -1,25 +1,43 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-import { products } from "../assets/assets";
 import Container from "../components/Container.jsx";
 import Card from "./Card";
+import { ShopContext } from "../context/ShopContext.jsx";
 
 const PopularItems = () => {
+  const { products } = useContext(ShopContext);
   const [searchType, setSearchType] = useState("Электроника");
   const [visibleCount, setVisibleCount] = useState(4);
 
-  // Фильтруем товары по выбранной категории и популярности
-  const filteredProducts = products.filter(
-    (item) => item.category === searchType && item.popular
-  );
+  // Функция для получения уникальных категорий из products
+  const getUniqueCategories = () => {
+    const subCategories = products
+      .map((item) => item.subCategory)
+      .filter((cat) => cat !== "");
+    return [...new Set(subCategories)];
+  };
+
+  // Получаем отфильтрованные продукты
+  const getFilteredProducts = () => {
+    return products.filter((item) =>
+      searchType === item.subCategory
+        ? true
+        : item.subCategory === searchType &&
+          item.popular &&
+          item.subCategory !== ""
+    );
+  };
+
+  const filteredProducts = getFilteredProducts();
+  const productsToDisplay = filteredProducts.slice(0, visibleCount);
 
   // Функция для показа еще товаров
   const handleShowMore = () => {
     setVisibleCount((prev) => prev + 4);
   };
 
-  // Отображаемые товары
-  const productsToDisplay = filteredProducts.length > 0 ? filteredProducts : [];
+  // Проверка на необходимость кнопки "Показать еще"
+  const shouldShowMoreButton = filteredProducts.length > visibleCount;
 
   return (
     <section className="py-[80px] px-[10px]">
@@ -28,87 +46,49 @@ const PopularItems = () => {
           Популярные товары
         </h2>
 
+        {/* Динамически сгенерированные кнопки для категорий */}
         <div className="flex gap-[30px] sm:gap-[50px] overflow-x-scroll">
-          <button
-            onClick={() => {
-              setSearchType("Моторы");
-              setVisibleCount(4);
-            }}
-            className={`relative px-0 py-[11px] rounded-[5px] text-nowrap sm:text-wrap ${
-              searchType === "Моторы" ? " text-main font-bold" : "bg-none"
-            }`}
-          >
-            моторы
-            {searchType === "Моторы" && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"></span>
-            )}
-          </button>
-          <button
-            onClick={() => {
-              setSearchType("Электроника");
-              setVisibleCount(4);
-            }}
-            className={`relative px-0 py-[11px] rounded-[5px] text-nowrap sm:text-wrap ${
-              searchType === "Электроника" ? " text-main font-bold" : "bg-none"
-            }`}
-          >
-            электроника
-            {searchType === "Электроника" && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"></span>
-            )}
-          </button>
-          <button
-            onClick={() => {
-              setSearchType("Инструменты");
-              setVisibleCount(4);
-            }}
-            className={`relative px-0 py-[11px] rounded-[5px] text-nowrap sm:text-wrap ${
-              searchType === "Инструменты" ? " text-main font-bold" : "bg-none"
-            }`}
-          >
-            инструменты
-            {searchType === "Инструменты" && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"></span>
-            )}
-          </button>
-          <button
-            onClick={() => {
-              setSearchType("Аксессуары");
-              setVisibleCount(4);
-            }}
-            className={`relative px-0 py-[11px] rounded-[5px] text-nowrap sm:text-wrap ${
-              searchType === "Аксессуары" ? " text-main font-bold" : "bg-none"
-            }`}
-          >
-            аксессуары
-            {searchType === "Аксессуары" && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"></span>
-            )}
-          </button>
+          {getUniqueCategories().map((category) => (
+            <button
+              key={category}
+              onClick={() => {
+                setSearchType(category);
+                setVisibleCount(4);
+              }}
+              className={`relative px-0 py-[11px] rounded-[5px] text-nowrap sm:text-wrap text-ellipsis whitespace-nowrap lowercase ${
+                searchType === category ? "text-main font-bold" : "bg-none"
+              }`}
+            >
+              {category}
+              {searchType === category && (
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-accent"></span>
+              )}
+            </button>
+          ))}
         </div>
 
+        {/* Список карточек товаров */}
         <div className="grid grid-cols-1 place-items-center xsSm:place-items-stretch xsSm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-[35px] gap-[30px]">
           {productsToDisplay.length === 0 ? (
             <p>Нет популярных товаров в данной категории.</p>
           ) : (
-            productsToDisplay
-              .slice(0, visibleCount)
-              .map((item) => <Card item={item} key={item._id} swiper={true} />)
+            productsToDisplay.map((item) => (
+              <Card item={item} key={item._id} swiper={true} />
+            ))
           )}
         </div>
 
-        {filteredProducts.length > 4 &&
-          visibleCount < filteredProducts.length && (
-            <div className="flex justify-center">
-              <button
-                className="mt-[35px] bg-basic uppercase text-[15px] py-[16px] px-[43px] text-main"
-                onClick={handleShowMore}
-                disabled={productsToDisplay.length <= visibleCount}
-              >
-                Показать еще
-              </button>
-            </div>
-          )}
+        {/* Кнопка "Показать еще" */}
+        {shouldShowMoreButton && (
+          <div className="flex justify-center">
+            <button
+              className="mt-[35px] bg-basic uppercase text-[15px] py-[16px] px-[43px] text-main"
+              onClick={handleShowMore}
+            >
+              Показать еще
+            </button>
+          </div>
+        )}
       </Container>
     </section>
   );

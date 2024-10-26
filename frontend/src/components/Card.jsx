@@ -10,7 +10,7 @@ const Card = ({ item, tableView, swiper = false }) => {
     lg: 26,
   };
 
-  const { currency } = useContext(ShopContext);
+  const { currency, navigate, addToCart } = useContext(ShopContext);
 
   return (
     <Link to={`/product/${item._id}`}>
@@ -55,7 +55,7 @@ const Card = ({ item, tableView, swiper = false }) => {
         </div>
 
         <div
-          className={`flex items-center justify-center ${
+          className={`flex flex-col items-center justify-center ${
             tableView === "column" && "flex-col gap-1"
           }`}
         >
@@ -63,14 +63,12 @@ const Card = ({ item, tableView, swiper = false }) => {
             {item.name}
           </p>
 
-          {item.price &&
-            item.availability === "В наличии" &&
-            tableView === "column" && (
-              <p className="flex justify-center gap-1 font-bold text-[18px] xs:text-[22px] md:text-[27px] pt-[26px]">
-                {String(item.price).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
-                <span>{currency}</span>
-              </p>
-            )}
+          {item.price && item.availability === "В наличии" && (
+            <p className="flex justify-center gap-1 font-bold text-[18px] xs:text-[22px] md:text-[27px] pt-[26px]">
+              {Number(item.price).toLocaleString("ru-RU")}{" "}
+              <span>{currency}</span>
+            </p>
+          )}
 
           {item.availability === "Нет в наличии" && tableView === "column" && (
             <div className="flex flex-col items-center">
@@ -84,11 +82,18 @@ const Card = ({ item, tableView, swiper = false }) => {
           )}
         </div>
 
-        {item.priceStart && (
-          <p className="flex justify-center gap-1 font-bold text-[27px] pt-[26px] text-center">
-            {String(item.priceStart).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
-            <span>{currency}</span>
-          </p>
+        {item.priceStart && item.priceDiscount && (
+          <div className="flex flex-col items-center">
+            <p className="text-lightGray text-xl relative z-[1]">
+              {Number(item.priceStart).toLocaleString("ru-RU")} {currency}
+              <span className="absolute top-1/2 left-0 w-full h-[1px] bg-lightGray transform -rotate-[16deg]"></span>
+            </p>
+
+            <p className="text-[30px] font-bold">
+              {Number(item.priceDiscount).toLocaleString("ru-RU")}
+              {currency}
+            </p>
+          </div>
         )}
 
         {item.availability === "Нет в наличии" && tableView === "grid" && (
@@ -115,18 +120,12 @@ const Card = ({ item, tableView, swiper = false }) => {
             </div>
           )}
 
-        {item.price &&
-          item.availability === "В наличии" &&
-          tableView === "grid" && (
-            <p className="flex justify-center gap-1 font-bold text-[18px] xs:text-[22px] sm:text-[27px] pt-[26px]">
-              {String(item.price).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
-              <span>{currency}</span>
-            </p>
-          )}
-
         {item.availability === "В наличии" && (
-          <div className="absolute bottom-0 right-0 rounded-ss-xl bg-accent px-[15px] py-[7px]">
-            <ShoppingCartIcon className="text-white" />
+          <div className="absolute z-20 bottom-0 right-0 rounded-ss-xl bg-accent px-[15px] py-[7px]">
+            <ShoppingCartIcon
+              className="text-white"
+              onClick={() => addToCart(item._id)}
+            />
             <style jsx="true">{`
               @media (min-width: 320px) {
                 .lucide-shopping-cart {
@@ -158,7 +157,7 @@ const Card = ({ item, tableView, swiper = false }) => {
         </div>
 
         <div className="flex xsSm:hidden z-10 absolute top-[50%] h-full w-full left-[50%] translate-x-[-50%] translate-y-[-50%] inset-0 items-center justify-center bg-white bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_15px_0_rgba(0,0,0,0.2)]">
-          <Search size={35} />
+          <Search size={35} onClick={() => navigate(`/product/${item._id}`)} />
         </div>
       </div>
     </Link>

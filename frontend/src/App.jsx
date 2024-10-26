@@ -10,7 +10,8 @@ import Hydrocycles from "./pages/Hydrocycles";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
-
+import PlaceOrder from "./pages/PlaceOrder";
+import Orders from "./pages/Orders";
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
       <Footer />
     </div>
