@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Login from "./components/Login";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UpdateProduct from "./pages/UpdateProduct";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 export const currency = "₴";
@@ -37,6 +38,10 @@ function App() {
                 <Route path="/add" element={<Add token={token} />} />
                 <Route path="/list" element={<List token={token} />} />
                 <Route path="/orders" element={<Orders token={token} />} />
+                <Route
+                  path="/product/update/:productId"
+                  element={<UpdateProduct token={token} />}
+                />
               </Routes>
             </div>
           </div>
