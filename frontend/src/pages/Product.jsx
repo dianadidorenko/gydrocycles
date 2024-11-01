@@ -14,38 +14,31 @@ const Product = () => {
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
-
   const [activeTab, setActiveTab] = useState(3);
   const [active, setActive] = useState(0);
-
   const tabs = ["Характеристики", "Наличие в магазине"];
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredStores, setFilteredStores] = useState([]);
+  const [searched, setSearched] = useState(false);
+
+  const { storeInfo = [] } = productData;
 
   // Функция для установки активного таба
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
 
-  const fetchProductData = async () => {
-    products.map((item) => {
-      console.log(item._id === productId);
-
-      if (item._id === productId) {
-        setProductData(item);
-        setImage(item.image[0]);
-        return null;
-      }
-    });
+  const fetchProductData = () => {
+    const item = products.find((product) => product._id === productId);
+    if (item) {
+      setProductData(item);
+      setImage(item.image[0]);
+    }
   };
-
-  console.log(productId);
 
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredStores, setFilteredStores] = useState([]);
-  const [searched, setSearched] = useState(false);
 
   // Фильтрация магазинов
   const handleSearch = () => {
@@ -55,26 +48,26 @@ const Product = () => {
       const filtered = storesInfoProductPage.filter((store) =>
         store.address.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredStores(filtered);
-    } else {
-      setFilteredStores([]);
+      setFilteredStores(filtered || []);
     }
   };
+
+  // console.log(productData);
 
   return productData ? (
     <div className="transition-opacity ease-in duration-500 opacity-100">
       <Container>
         <PagesNav title={productData.category} model={productData.name} />
         {/* Product Data */}
-        <div className="flex gap-[50px] lg:gap-[100px] justify-between flex-col md:flex-row pb-[80px] px-[10px]">
+        <div className="flex gap-[50px] lg:gap-[100px] justify-between flex-col items-center md:flex-row pb-[80px] px-[10px]">
           {/* Product Image */}
           <div
-            className={`flex flex-col gap-3 items-center ${
+            className={`flex flex-col gap-3 ${
               productData.promotionType ? "justify-between" : "justify-center"
             }`}
           >
             {productData.promotionType && (
-              <div className="flex">
+              <div className="flex ">
                 <p className="uppercase text-[12px] py-2 px-[20px] bg-accent text-white tracking-[3px]">
                   {productData.promotionType}
                 </p>
@@ -82,7 +75,11 @@ const Product = () => {
               </div>
             )}
 
-            <img src={image} alt="" className="w-[400px] lg:w-[500px]" />
+            <img
+              src={image}
+              alt={productData.name}
+              className="w-[400px] lg:w-[500px]"
+            />
 
             <div className="relative flex flex-col items-center">
               {productData.price && (
@@ -179,7 +176,7 @@ const Product = () => {
                   </div>
                   <div className="flex justify-between border-b border-b-main/10 pb-[6px]">
                     <p>Тип двигателя</p>
-                    <p>{productData.engine}</p>
+                    <p>{productData.engineType}</p>
                   </div>
                   <div className="flex justify-between border-b border-b-main/10 pb-[6px]">
                     <p>Год выпуска</p>
@@ -198,28 +195,22 @@ const Product = () => {
                     active ? "flex-col" : "hidden"
                   }`}
                 >
-                  {storesInfoProductPage.map((storeInfo, index) => {
-                    const storeAvailability = productData.storeInfo?.find(
-                      (productInfo) =>
-                        productInfo.storeNumber === storeInfo.storeNumber
+                  {storesInfoProductPage.map((store) => {
+                    const storeMatch = storeInfo.find(
+                      (mongoStore) =>
+                        mongoStore.storeNumber === parseInt(store.storeNumber)
                     );
 
                     return (
                       <div
-                        key={index}
-                        className="text-[16px] flex justify-between gap-[25px] md:gap-0 items-center md:items-stretch text-center md:text-left md:justify-between flex-col md:flex-row py-[10px] border-b border-lightGray"
+                        key={store.storeNumber}
+                        className="text-[16px] flex justify-between gap-[25px] items-center md:items-stretch text-center md:text-left md:justify-between flex-col md:flex-row py-[10px] border-b border-lightGray"
                       >
-                        {/* Адрес */}
-                        <span className="px-[5px] max-w-[200px] lg:max-w-[100%]">
-                          {storeInfo.address}
-                        </span>
-                        {/* Доступно */}
+                        <span className="px-[5px]">{store.address}</span>
                         <span>
-                          {storeAvailability
-                            ? storeAvailability.availabilityStore
-                              ? storeAvailability.availabilityStore
-                              : "Нет в наличии"
-                            : "Нет в наличии"}
+                          {storeMatch
+                            ? storeMatch.availabilityQuantity + " шт."
+                            : "0"}
                         </span>
                       </div>
                     );

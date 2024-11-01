@@ -25,10 +25,9 @@ const Stores = ({ storesInfoProductPage, productData }) => {
     <div className="flex flex-col">
       {visibleStores.map((storeInfo, index) => {
         const storeAvailability = productData.storeInfo?.find(
-          (productInfo) => productInfo.storeNumber === storeInfo.storeNumber
+          (productInfo) =>
+            productInfo.storeNumber === Number(storeInfo.storeNumber)
         );
-
-        // Проверка доступности товара в магазине
         const isAvailable =
           storeAvailability && storeAvailability.availabilityQuantity > 0;
 
@@ -96,8 +95,6 @@ const Stores = ({ storesInfoProductPage, productData }) => {
               <span>
                 {storeAvailability
                   ? storeAvailability.availabilityStore
-                    ? storeAvailability.availabilityStore
-                    : "Нет в наличии"
                   : "Нет в наличии"}
               </span>
             </div>
@@ -117,9 +114,7 @@ const Stores = ({ storesInfoProductPage, productData }) => {
 
               <span>
                 {storeAvailability
-                  ? storeAvailability.availabilityQuantity
-                    ? storeAvailability.availabilityQuantity
-                    : "0"
+                  ? storeAvailability.availabilityQuantity + " шт."
                   : "0"}
               </span>
             </div>
@@ -127,7 +122,7 @@ const Stores = ({ storesInfoProductPage, productData }) => {
             {/* Кнопка Купить */}
             <div className="flex justify-end items-end w-full xs2:w-min">
               <button
-                disabled={!isAvailable} // Кнопка отключена, если товара нет в наличии
+                disabled={!isAvailable}
                 className={`text-[14px] md:text-[13px] w-full uppercase py-[10px] px-[40px] ${
                   isAvailable
                     ? "bg-accent text-white"

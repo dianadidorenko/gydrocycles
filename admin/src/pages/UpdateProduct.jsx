@@ -382,7 +382,7 @@ const UpdateProduct = ({ token }) => {
         <div className="w-full">
           <p className="mb-2">Мощность</p>
           <input
-            type="text"
+            type="number"
             value={power}
             onChange={(e) => setPower(e.target.value)}
             className="w-full max-w-[500px] px-3 py-2 border border-neutral-200 rounded-[5px]"
@@ -391,7 +391,7 @@ const UpdateProduct = ({ token }) => {
         <div className="w-full">
           <p className="mb-2">Мощность двигателя</p>
           <input
-            type="text"
+            type="number"
             value={enginePower}
             onChange={(e) => setEnginePower(e.target.value)}
             className="w-full max-w-[500px] px-3 py-2 border border-neutral-200 rounded-[5px]"
