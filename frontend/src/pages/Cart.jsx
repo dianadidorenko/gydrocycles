@@ -6,26 +6,28 @@ import Container from "../components/Container";
 import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity, navigate } =
+  const { products, cartItems, updateQuantity, navigate } =
     useContext(ShopContext);
+
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
-    const tempData = [];
-
-    for (const itemId in cartItems) {
-      if (cartItems[itemId] > 0) {
-        tempData.push({
+    if (products.length > 0) {
+      const tempData = Object.keys(cartItems)
+        .map((itemId) => ({
           _id: itemId,
-          quantity: cartItems[itemId],
-        });
-      }
+          quantity: cartItems[itemId]?.quantity || 0,
+        }))
+        .filter((item) => item.quantity > 0);
+      setCartData(tempData);
     }
-    setCartData(tempData);
-  }, [cartItems]);
+  }, [cartItems, products]);
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat("ru-RU").format(price);
+    return new Intl.NumberFormat("ru-RU", {
+      style: "currency",
+      currency: "UAH",
+    }).format(price);
   };
 
   return (
@@ -58,7 +60,6 @@ const Cart = () => {
                         <p className="font-bold">
                           {formatPrice(productData.price)}
                         </p>
-                        {currency}
                       </div>
                     </div>
                   </div>
@@ -66,12 +67,14 @@ const Cart = () => {
                     className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
                     type="number"
                     min={1}
-                    value={item.quantity} // Используем value вместо defaultValue
-                    onChange={(e) =>
-                      e.target.value === "" || e.target.value === "0"
-                        ? null
-                        : updateQuantity(item._id, Number(e.target.value))
-                    }
+                    value={item.quantity}
+                    onChange={(e) => {
+                      const newQuantity = Math.max(1, Number(e.target.value));
+                      // Убедитесь, что newQuantity не NaN
+                      if (!isNaN(newQuantity)) {
+                        updateQuantity(item._id, newQuantity);
+                      }
+                    }}
                   />
                   <Trash
                     onClick={() => updateQuantity(item._id, 0)}

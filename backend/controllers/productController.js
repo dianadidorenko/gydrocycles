@@ -233,6 +233,7 @@ const singleProduct = async (req, res) => {
     res.json({ succes: false, message: error.message });
   }
 };
+
 export {
   addProduct,
   listProducts,

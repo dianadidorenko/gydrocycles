@@ -17,8 +17,16 @@ import { useContext, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
-  const { getCartCount } = useContext(ShopContext);
+  const { getCartCount, navigate, token, setToken, setCartItems } =
+    useContext(ShopContext);
   const [show, setShow] = useState(false);
+
+  const logout = () => {
+    navigate("/login");
+    localStorage.removeItem("token");
+    setToken("");
+    setCartItems({});
+  };
 
   return (
     <header>
@@ -62,21 +70,32 @@ const Navbar = () => {
           <div className="flex items-center gap-[10px]">
             <Heart size={30} />
             <div className="group relative">
-              <User size={30} />
+              <User
+                onClick={() => (token ? null : navigate("/login"))}
+                size={30}
+              /> 
 
-              <div className="group-hover:block hidden absolute dropdown-menu -right-2 top-6 pt-4 z-10">
-                <div className="flex flex-col gap-3 w-36 py-3 px-5 bg-[#eee] border border-[#b6b6b6]">
-                  <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
-                    <User size={20} /> Профиль
-                  </p>
-                  <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
-                    <Package size={20} /> Заказы
-                  </p>
-                  <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
-                    <LogOut size={20} /> Выйти
-                  </p>
+              {token && (
+                <div className="group-hover:block hidden absolute dropdown-menu -right-2 top-6 pt-4 z-10">
+                  <div className="flex flex-col gap-3 w-36 py-3 px-5 bg-[#eee] border border-[#b6b6b6]">
+                    <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
+                      <User size={20} /> Профиль
+                    </p>
+                    <p
+                      onClick={() => navigate("/orders")}
+                      className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2"
+                    >
+                      <Package size={20} /> Заказы
+                    </p>
+                    <p
+                      onClick={logout}
+                      className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2"
+                    >
+                      <LogOut size={20} /> Выйти
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div>

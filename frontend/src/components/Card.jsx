@@ -76,7 +76,7 @@ const Card = ({ item, tableView, swiper = false }) => {
                 {item.availability}
               </p>
               <button className="pt-[13px] text-accent underline">
-                Сообщить о поступленини
+                Сообщить о поступлении
               </button>
             </div>
           )}
@@ -102,7 +102,7 @@ const Card = ({ item, tableView, swiper = false }) => {
               {item.availability}
             </p>
             <button className="pt-[13px] text-accent underline">
-              Сообщить о поступленини
+              Сообщить о поступлении
             </button>
           </div>
         )}
@@ -115,7 +115,7 @@ const Card = ({ item, tableView, swiper = false }) => {
                 {item.availability}
               </p>
               <button className="pt-[13px] text-accent underline">
-                Сообщить о поступленини
+                Сообщить о поступлении
               </button>
             </div>
           )}

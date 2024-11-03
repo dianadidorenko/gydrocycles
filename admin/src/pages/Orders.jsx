@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { backendUrl, currency } from "../App";
 import { toast } from "react-toastify";
-import { assets } from "../assets/assets";
+import { Package } from "lucide-react";
+
+import { backendUrl, currency } from "../App";
 
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
@@ -41,8 +42,11 @@ const Orders = ({ token }) => {
         { headers: { token } }
       );
 
-      if (response.data.sucess) {
+      if (response.data.success) {
         await fetchAllOrders();
+        window.location.reload();
+      } else {
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
@@ -56,75 +60,65 @@ const Orders = ({ token }) => {
 
   return (
     <div>
-      <h3>Order Page</h3>
+      <h3>Заказы</h3>
       <div>
         {orders.map((order, index) => (
           <div
             key={index}
-            className="grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr] gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
+            className="grid items-start grid-cols-1 md:grid-cols-[0.5fr_1fr_1fr_0.5fr] lg:grid-cols-[0.5fr_3fr_1fr_0.5fr] gap-x-[10px] gap-y-6 border-2 border-gray-200 p-4 my-3 md:my-4 text-xs sm:text-sm text-gray-700"
           >
-            <img
-              src={assets.parcel_icon}
-              className="w-12"
-              alt={order.items.map((item) => item.name)}
-            />
+            <Package size={40} />
             <div>
               <div>
                 {order.items.map((item, index) => {
                   if (index === order.items.length - 1) {
                     return (
                       <p key={index} className="py-0.5">
-                        {item.name} x {item.quantity} <span>{item.size}</span>
+                        {item.name} x {item.quantity}
                       </p>
                     );
                   } else {
                     return (
                       <p key={index} className="py-0.5">
-                        {item.name} x {item.quantity} <span>{item.size}</span>
+                        {item.name} x {item.quantity}
                       </p>
                     );
                   }
                 })}
               </div>
-              <p className="mt-3 mb-2 font-medium">
+
+              <p className="text-sm sm:text-[15px] font-bold py-2">
+                {order.amount} {currency}
+              </p>
+
+              <p className="my-2 font-medium">
                 {order.address.firstName + " " + order.address.lastName}
               </p>
               <div>
-                <p>{order.address.street + ", "}</p>
-                <p>
-                  {order.address.city +
-                    ", " +
-                    order.address.state +
-                    ", " +
-                    order.address.country +
-                    ", " +
-                    order.address.zipcode}
-                </p>
+                <p>{order.address.city + ", " + order.address.country}</p>
               </div>
               <p>{order.address.phone}</p>
             </div>
 
             <div>
               <p className="text-sm sm:text-[15px]">
-                Items : {order.items.length}
+                Товары: {order.items.length}
               </p>
-              <p className="mt-3">Method : {order.peymentMethod}</p>
-              <p>Peyment: {order.payment ? "Done" : "Pending"}</p>
-              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+              <p className="mt-3">Метод: {order.paymentMethod}</p>
+              <p>Платеж: {order.payment ? "Оплачен" : "В процессе"}</p>
+              <p>Дата: {new Date(order.date).toLocaleDateString()}</p>
             </div>
-            <p className="text-sm sm:text-[15px]">
-              {currency} {order.amount}
-            </p>
+
             <select
               value={order.status}
               onChange={(e) => statusHandler(e, order._id)}
-              className="p-2 font-semibold"
+              className="p-2 font-semibold border rounded"
             >
-              <option value="Order Placed">Order Placed</option>
-              <option value="Packing">Packing</option>
-              <option value="Ship">Ship</option>
-              <option value="Out for delivery">Out for delivery</option>
-              <option value="Delivered">Delivered</option>
+              <option value="Заказ размещен">Заказ размещен</option>
+              <option value="Упаковывается">Упаковывается</option>
+              <option value="Отгружается">Отгружается</option>
+              <option value="Доставляется">Доставляется</option>
+              <option value="Доставлен">Доставлен</option>
             </select>
           </div>
         ))}
