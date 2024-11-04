@@ -41,17 +41,18 @@ const Favorites = () => {
       <Container>
         <h1 className="text-xl font-bold pt-6">Избранное</h1>
         {favorites.length === 0 ? (
-          <p>Нет избранных товаров</p>
+          <div className="flex items-center justify-center py-8">
+            <p>Нет избранных товаров</p>
+          </div>
         ) : (
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 py-10">
             {favorites.map((favoriteId) => {
               const product = productsMap[favoriteId];
-              const isProductFavorite = favorites.includes(favoriteId);
 
               return product ? (
                 <li
                   key={favoriteId}
-                  className="relative cursor-pointer border rounded p-2 flex flex-col items-center justify-center text-center hover:shadow-lg duration-300"
+                  className="relative cursor-pointer border rounded p-2 flex flex-col items-center justify-center text-center hover:shadow-lg duration-300 max-w-[450px] mx-auto"
                 >
                   <Heart
                     onClick={() =>

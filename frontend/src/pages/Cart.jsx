@@ -84,7 +84,9 @@ const Cart = () => {
               );
             })
           ) : (
-            <p>Ваша корзина пуста</p>
+            <div className="flex items-center justify-center py-8">
+              <p>Ваша корзина пуста</p>
+            </div>
           )}
         </div>
 
