@@ -16,7 +16,8 @@ import Card from "../components/Card";
 import { ShopContext } from "../context/ShopContext";
 
 const Hydrocycles = () => {
-  const { products } = useContext(ShopContext);
+  const { products } =
+    useContext(ShopContext);
 
   const [tableView, setTableView] = useState("grid");
 
@@ -234,6 +235,7 @@ const Hydrocycles = () => {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
 
   return (
     <section>

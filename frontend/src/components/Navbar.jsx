@@ -68,19 +68,20 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-[10px]">
-            <Heart size={30} />
+            <Link to={"/favorites"}>
+              <Heart size={28} className="cursor-pointer" />
+            </Link>
+
             <div className="group relative">
               <User
                 onClick={() => (token ? null : navigate("/login"))}
                 size={30}
-              /> 
+                className="cursor-pointer"
+              />
 
               {token && (
                 <div className="group-hover:block hidden absolute dropdown-menu -right-2 top-6 pt-4 z-10">
                   <div className="flex flex-col gap-3 w-36 py-3 px-5 bg-[#eee] border border-[#b6b6b6]">
-                    <p className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2">
-                      <User size={20} /> Профиль
-                    </p>
                     <p
                       onClick={() => navigate("/orders")}
                       className="cursor-pointer hover:text-accent duration-300 flex items-center gap-2"
@@ -100,7 +101,7 @@ const Navbar = () => {
 
             <div>
               <Link to={"/cart"} className="relative">
-                <FiShoppingCart size={30} className="w-[30px]" />
+                <FiShoppingCart size={28} className="w-[30px]" />
                 <span className="absolute right-[3px] bottom-[22px] w-4 text-center leading-4 bg-accent text-white rounded-full aspect-square text-[10px] animate-bounce-up-down">
                   {getCartCount()}
                 </span>

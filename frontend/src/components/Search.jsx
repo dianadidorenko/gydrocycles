@@ -1,14 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchIcon } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-import { products } from "../assets/assets.js";
 import Container from "./Container.jsx";
+import { backendUrl } from "../App.jsx";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [searchType, setSearchType] = useState("code");
+  const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searched, setSearched] = useState(false);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(backendUrl + "/api/product/list");
+      setProducts(response.data.products);
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   // Функция поиска
   const handleSearch = () => {
@@ -26,6 +42,7 @@ const Search = () => {
           product.name.toLowerCase().includes(query.toLowerCase())
         );
       }
+
       return false;
     });
     setFilteredProducts(filtered);
@@ -142,7 +159,7 @@ const Search = () => {
                     </p>
                   )}
                   <p className="text-sm md:text-base text-gray-500">
-                    Цена: {product.priceStart.toLocaleString()} ₴
+                    Цена: {product.priceStart} ₴
                   </p>
                 </div>
               ))

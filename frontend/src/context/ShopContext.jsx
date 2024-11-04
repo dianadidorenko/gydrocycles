@@ -11,8 +11,10 @@ const ShopContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [token, setToken] = useState("");
   const navigate = useNavigate();
+
 
   const addToCart = async (itemId) => {
     if (!itemId) {
@@ -86,9 +88,9 @@ const ShopContextProvider = (props) => {
     for (const itemId in cartItems) {
       const itemInfo = products.find((product) => product._id === itemId);
       if (itemInfo) {
-        const quantity = cartItems[itemId].quantity || 0; 
+        const quantity = cartItems[itemId].quantity || 0;
         if (quantity > 0) {
-          totalAmount += itemInfo.price * quantity; 
+          totalAmount += itemInfo.price * quantity;
         }
       }
     }
@@ -127,6 +129,91 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  // const makeFavorite = async (itemId) => {
+  //   if (!itemId) {
+  //     toast.error("Выберите товар");
+  //     return;
+  //   }
+
+  //   if (token) {
+  //     try {
+  //       await axios.post(
+  //         backendUrl + "/api/user/makeFavorite",
+  //         { itemId },
+  //         { headers: { token } }
+  //       );
+  //       toast.success("Товар добавлен в избранное");
+  //     } catch (error) {
+  //       console.log(error);
+  //       toast.error("Ошибка добавления в избранное");
+  //     }
+  //   } else {
+  //     toast.error("Необходимо войти в систему");
+  //   }
+  // };
+
+  const makeFavorite = async (itemId, isFavorite) => {
+    if (!itemId) {
+      toast.error("Выберите товар");
+      return;
+    }
+
+    if (token) {
+      try {
+        const endpoint = isFavorite
+          ? "/api/user/removeFavorite"
+          : "/api/user/makeFavorite";
+        await axios.post(
+          backendUrl + endpoint,
+          { itemId },
+          { headers: { token } }
+        );
+
+        if (isFavorite) {
+          toast.success("Товар удален из избранного");
+          setFavorites((prev) => prev.filter((id) => id !== itemId));
+        } else {
+          toast.success("Товар добавлен в избранное");
+          setFavorites((prev) => [...prev, itemId]);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Ошибка при изменении статуса товара в избранном");
+      }
+    } else {
+      toast.error("Необходимо войти в систему");
+    }
+  };
+
+  const listOfFavorites = async () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const response = await axios.get(
+          backendUrl + "/api/user/listOfFavorites",
+          { headers: { token } }
+        );
+
+        if (response.data.success) {
+          return response.data.favorites;
+        } else {
+          toast.error(
+            "Ошибка при получении избранного: " + response.data.message
+          );
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(
+          "Ошибка при получении избранного: " +
+            (error.response ? error.response.data.message : error.message)
+        );
+      }
+    } else {
+      toast.error("Необходимо войти в систему");
+    }
+  };
+
   useEffect(() => {
     getProductsData();
   }, []);
@@ -152,6 +239,10 @@ const ShopContextProvider = (props) => {
     token,
     setToken,
     setCartItems,
+    makeFavorite,
+    listOfFavorites,
+    favorites,
+    setFavorites,
   };
 
   return (

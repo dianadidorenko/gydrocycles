@@ -11,15 +11,24 @@ import Stores from "../components/Stores";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext);
+  const {
+    products,
+    currency,
+    addToCart,
+    makeFavorite,
+    favorites,
+    setFavorites,
+  } = useContext(ShopContext);
+
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [activeTab, setActiveTab] = useState(3);
   const [active, setActive] = useState(0);
-  const tabs = ["Характеристики", "Наличие в магазине"];
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredStores, setFilteredStores] = useState([]);
   const [searched, setSearched] = useState(false);
+
+  const tabs = ["Характеристики", "Наличие в магазине"];
 
   const { storeInfo = [] } = productData;
 
@@ -27,18 +36,6 @@ const Product = () => {
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
-
-  const fetchProductData = () => {
-    const item = products.find((product) => product._id === productId);
-    if (item) {
-      setProductData(item);
-      setImage(item.image[0]);
-    }
-  };
-
-  useEffect(() => {
-    fetchProductData();
-  }, [productId, products]);
 
   // Фильтрация магазинов
   const handleSearch = () => {
@@ -52,7 +49,26 @@ const Product = () => {
     }
   };
 
-  // console.log(productData);
+  useEffect(() => {
+    const item = products.find((product) => product._id === productId);
+    if (item) {
+      setProductData(item);
+      setImage(item.image[0]);
+    }
+  }, [productId, products]);
+
+  const isFavorite = favorites.includes(productId);
+
+  const toggleFavorite = async () => {
+    await makeFavorite(productId, isFavorite);
+    setFavorites((prev) => {
+      if (isFavorite) {
+        return prev.filter((id) => id !== productId);
+      } else {
+        return [...prev, productId];
+      }
+    });
+  };
 
   return productData ? (
     <div className="transition-opacity ease-in duration-500 opacity-100">
@@ -121,8 +137,15 @@ const Product = () => {
             </p>
 
             <div className="flex items-center gap-[25px] mt-[21px]">
-              <Heart />
+              <Heart
+                onClick={toggleFavorite}
+                color={isFavorite ? "blue" : "gray"}
+                fill={isFavorite ? "blue" : "none"}
+                className="cursor-pointer"
+              />
+
               <ChartNoAxesColumn />
+
               <div className="flex items-center gap-1">
                 <Star fill="#1C62CD" color="#1C62CD" />
                 <Star fill="#1C62CD" color="#1C62CD" />

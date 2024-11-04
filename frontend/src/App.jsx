@@ -13,6 +13,9 @@ import Product from "./pages/Product";
 import PlaceOrder from "./pages/PlaceOrder";
 import Orders from "./pages/Orders";
 import Verify from "./pages/Verify";
+import Favorites from "./pages/Favorites";
+
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
   return (
@@ -30,6 +33,7 @@ function App() {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
       <Footer />
     </div>

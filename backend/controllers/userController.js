@@ -106,4 +106,84 @@ const adminLogin = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser, adminLogin };
+// Make Favorite
+const makeFavorite = async (req, res) => {
+  try {
+    const { itemId } = req.body;
+    const userId = req.user.id;
+
+    // Логика добавления в избранное
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Пользователь не найден" });
+    }
+
+    const currentFavorites = user.favorites || [];
+    if (!currentFavorites.includes(itemId)) {
+      currentFavorites.push(itemId);
+    }
+
+    await userModel.findByIdAndUpdate(userId, { favorites: currentFavorites });
+    res.json({ success: true, message: "Товар добавлен в избранное" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Remove Favorite
+const removeFavorite = async (req, res) => {
+  try {
+    const { itemId } = req.body;
+    const userId = req.user.id;
+
+    // Логика удаления из избранного
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Пользователь не найден" });
+    }
+
+    const currentFavorites = user.favorites || [];
+    const updatedFavorites = currentFavorites.filter((fav) => fav !== itemId);
+
+    await userModel.findByIdAndUpdate(userId, { favorites: updatedFavorites });
+    res.json({ success: true, message: "Товар удален из избранного" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// List of Favorites by User
+const listOfFavorites = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    const favorites = user.favorites || [];
+    res.json({ success: true, favorites });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export {
+  loginUser,
+  registerUser,
+  adminLogin,
+  makeFavorite,
+  removeFavorite,
+  listOfFavorites,
+};

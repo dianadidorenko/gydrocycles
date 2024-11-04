@@ -10,7 +10,27 @@ const Card = ({ item, tableView, swiper = false }) => {
     lg: 26,
   };
 
-  const { currency, navigate, addToCart } = useContext(ShopContext);
+  const {
+    currency,
+    navigate,
+    addToCart,
+    makeFavorite,
+    favorites,
+    setFavorites,
+  } = useContext(ShopContext);
+
+  const isFavorite = favorites.includes(item._id);
+
+  const toggleFavorite = async () => {
+    await makeFavorite(item._id, isFavorite);
+    setFavorites((prev) => {
+      if (isFavorite) {
+        return prev.filter((id) => id !== item._id);
+      } else {
+        return [...prev, item._id];
+      }
+    });
+  };
 
   return (
     <Link to={`/product/${item._id}`}>
@@ -24,7 +44,12 @@ const Card = ({ item, tableView, swiper = false }) => {
       >
         {(tableView || swiper) && (
           <div className="z-20 absolute right-2 top-2 p-2 flex items-end justify-end">
-            <Heart onClick={() => console.log("Heart")} />
+            <Heart
+              onClick={toggleFavorite}
+              color={isFavorite ? "blue" : "gray"}
+              fill={isFavorite ? "blue" : "none"}
+              className="cursor-pointer"
+            />
           </div>
         )}
 
