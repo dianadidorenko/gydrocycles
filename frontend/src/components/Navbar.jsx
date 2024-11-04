@@ -101,7 +101,7 @@ const Navbar = () => {
 
             <div>
               <Link to={"/cart"} className="relative">
-                <FiShoppingCart size={28} className="w-[30px]" />
+                <FiShoppingCart size={28} className="" />
                 <span className="absolute right-[3px] bottom-[22px] py-[1px] px-[5px] text-center bg-accent text-white rounded-full aspect-square text-[10px] animate-bounce-up-down">
                   {getCartCount()}
                 </span>
