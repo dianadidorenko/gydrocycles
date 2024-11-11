@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 import Container from "./Container.jsx";
 import { backendUrl } from "../App.jsx";
+import Loader from "./Loader.jsx";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -12,6 +13,8 @@ const Search = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searched, setSearched] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const fetchProducts = async () => {
     try {
@@ -23,7 +26,9 @@ const Search = () => {
     }
   };
   useEffect(() => {
+    setLoading(true);
     fetchProducts();
+    setLoading(false);
   }, []);
 
   // Функция поиска
@@ -54,6 +59,8 @@ const Search = () => {
     setFilteredProducts([]);
     setSearched(false);
   };
+
+  if (loading) return <Loader />;
 
   return (
     <section className="px-[10px]">

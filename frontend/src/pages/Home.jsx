@@ -7,7 +7,10 @@ import RelatedItems from "../components/RelatedItems";
 import Search from "../components/Search";
 import { Link } from "react-router-dom";
 
+
 const Home = () => {
+
+
   return (
     <div>
       <Banner />

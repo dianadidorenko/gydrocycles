@@ -8,6 +8,7 @@ import PagesNav from "../components/PagesNav";
 import { categoriesProductPage, storesInfoProductPage } from "../assets/assets";
 import RelatedItems from "../components/RelatedItems";
 import Stores from "../components/Stores";
+import Loader from "../components/Loader";
 
 const Product = () => {
   const { productId } = useParams();
@@ -27,6 +28,7 @@ const Product = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredStores, setFilteredStores] = useState([]);
   const [searched, setSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const tabs = ["Характеристики", "Наличие в магазине"];
 
@@ -50,11 +52,13 @@ const Product = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const item = products.find((product) => product._id === productId);
     if (item) {
       setProductData(item);
       setImage(item.image[0]);
     }
+    setLoading(false);
   }, [productId, products]);
 
   const isFavorite = favorites.includes(productId);
@@ -69,6 +73,8 @@ const Product = () => {
       }
     });
   };
+
+  if (loading) return <Loader />;
 
   return productData ? (
     <div className="transition-opacity ease-in duration-500 opacity-100">

@@ -11,6 +11,7 @@ import Container from "../components/Container";
 import { Link } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
+import Loader from "../components/Loader";
 
 const mainSliderData = [
   {
@@ -38,13 +39,19 @@ const MainSlider = () => {
 
   const [randomProduct, setRandomProduct] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     const availableProducts = products.filter(
       (item) => item.priceDiscount && item.priceStart
     );
     const randomIndex = Math.floor(Math.random() * availableProducts.length);
     setRandomProduct(availableProducts[randomIndex]);
+    setLoading(false);
   }, [products]);
+
+  if (loading) return <Loader />;
 
   if (!randomProduct) return null;
 
