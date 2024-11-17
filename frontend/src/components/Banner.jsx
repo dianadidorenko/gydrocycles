@@ -48,7 +48,12 @@ const MainSlider = () => {
     );
     const randomIndex = Math.floor(Math.random() * availableProducts.length);
     setRandomProduct(availableProducts[randomIndex]);
-    setLoading(false);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [products]);
 
   if (loading) return <Loader />;
@@ -67,8 +72,7 @@ const MainSlider = () => {
               breakpoints={{}}
               spaceBetween={30}
               pagination={(true, { clickable: true })}
-
-              //   autoplay={true}
+              autoplay={true}
             >
               {mainSliderData.map((picture, index) => (
                 <SwiperSlide key={index}>

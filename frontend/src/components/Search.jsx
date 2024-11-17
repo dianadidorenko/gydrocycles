@@ -28,7 +28,12 @@ const Search = () => {
   useEffect(() => {
     setLoading(true);
     fetchProducts();
-    setLoading(false);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Функция поиска

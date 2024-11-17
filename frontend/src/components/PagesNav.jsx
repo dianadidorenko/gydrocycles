@@ -8,7 +8,7 @@ const PagesNav = ({ title, model = "" }) => {
       <ChevronRight size={15} />
 
       <Link to={`${location}`}>{title}</Link>
-      <ChevronRight size={15} />
+      {model && <ChevronRight size={15} />}
 
       {model && <div className="flex items-center gap-[5px]">{model}</div>}
     </div>

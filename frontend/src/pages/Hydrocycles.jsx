@@ -16,8 +16,7 @@ import Card from "../components/Card";
 import { ShopContext } from "../context/ShopContext";
 
 const Hydrocycles = () => {
-  const { products } =
-    useContext(ShopContext);
+  const { products } = useContext(ShopContext);
 
   const [tableView, setTableView] = useState("grid");
 
@@ -98,22 +97,12 @@ const Hydrocycles = () => {
 
     return Array.from(new Set(promotions));
   };
-
   const handlePromotionChange = (promotion) => {
     setSelectedPromotionType((prevSelected) =>
       prevSelected === promotion ? "" : promotion
     );
   };
-
   const uniquePromotions = getUniquePromotions();
-
-  const displayedProducts = selectedPromotionType
-    ? products.filter(
-        (item) =>
-          item.category === "Гидроциклы" &&
-          item.promotionType === selectedPromotionType
-      )
-    : products.filter((item) => item.category === "Гидроциклы");
 
   // Страна
   const handleCountryChange = (country) => {
@@ -165,7 +154,6 @@ const Hydrocycles = () => {
   const [filters, setFilters] = useState({
     availability: "",
   });
-
   const handleFilterChange = (e) => {
     const { value } = e.target;
     setFilters((prev) => ({
@@ -173,7 +161,6 @@ const Hydrocycles = () => {
       availability: value,
     }));
   };
-
   const filteredProducts = sortedProducts.filter((item) => {
     if (item.category === "Гидроциклы") {
       if (
@@ -224,18 +211,15 @@ const Hydrocycles = () => {
   // Пагинация
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredProducts.slice(
     startIndex,
     startIndex + itemsPerPage
   );
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
 
   return (
     <section>
