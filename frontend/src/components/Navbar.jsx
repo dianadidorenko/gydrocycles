@@ -101,10 +101,12 @@ const Navbar = () => {
 
             <div>
               <Link to={"/cart"} className="relative">
-                <FiShoppingCart size={28} className="" />
-                <span className="absolute right-[3px] bottom-[22px] py-[1px] px-[5px] text-center bg-accent text-white rounded-full aspect-square text-[10px] animate-bounce-up-down">
-                  {getCartCount()}
-                </span>
+                <FiShoppingCart size={28}  />
+                {getCartCount() > 0 && (
+                  <span className="absolute right-[-1px] bottom-[13px] py-[2px] px-[6px] text-center bg-accent text-white rounded-full text-[9px]">
+                    {getCartCount()}
+                  </span>
+                )}
               </Link>
             </div>
           </div>
